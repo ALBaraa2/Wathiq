@@ -5,10 +5,6 @@
 
 JurisProp closes the entire real-estate loop in a single connected digital journey — from property search, through AI-generated contracts, lawyer review and approval, digital signature, to payment and portfolio management.
 
-> **Document version:** 1.0
-> **Author:** Samer Alaa Ali Abu Zaina — Computer Engineer | Flutter Mobile Developer
-> **Source:** `JurisProp_SRS.docx` (Software Requirements Specification)
-
 ---
 
 ## Overview
