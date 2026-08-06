@@ -95,7 +95,21 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
-            'search_path' => env('DB_SEARCH_PATH', 'app,public'),
+            // 'public' MUST stay first: CREATE TABLE with no schema qualifier
+            // lands in the first entry, and Laravel's own framework tables
+            // (migrations, sessions, cache, jobs) belong in public, not in the
+            // business schema. 'app' follows so Eloquent models can still
+            // reference their tables unqualified. Tables in the knowledge, ops
+            // and audit schemas are addressed with an explicit prefix in
+            // $table (e.g. 'audit.audit_logs').
+            //
+            // 'extensions' is last and matters on Supabase, which pre-installs
+            // pgcrypto (and others) there rather than in public. Without it,
+            // extension-provided types and operator classes — citext,
+            // gin_trgm_ops, vector_cosine_ops — fail to resolve at DDL time.
+            // Harmless where the schema does not exist: PostgreSQL ignores
+            // missing entries in search_path.
+            'search_path' => env('DB_SEARCH_PATH', 'public,app,extensions'),
             'sslmode' => env('DB_SSLMODE', 'prefer'),
         ],
 
