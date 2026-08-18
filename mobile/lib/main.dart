@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+import 'config/routes/app_routes.dart';
+import 'config/theme/app_theme.dart';
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const WathiqApp());
+}
+
+class WathiqApp extends StatelessWidget {
+  const WathiqApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Wathiq',
+
+      theme: AppTheme.light,
+
+      routerConfig: AppRoutes.router,
+    );
+  }
+}

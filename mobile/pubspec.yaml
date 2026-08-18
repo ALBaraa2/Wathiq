@@ -1,0 +1,49 @@
+name: mobile
+description: "Wathiq mobile application."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Flutter localization
+  flutter_localizations:
+    sdk: flutter
+
+  # iOS-style icons
+  cupertino_icons: ^1.0.8
+
+  # Fonts
+  google_fonts: ^6.3.2
+
+  # Networking
+  dio: ^5.9.0
+
+  # Routing
+  go_router: ^16.2.0
+
+  # State management
+  flutter_bloc: ^9.1.1
+
+  # Responsive UI
+  flutter_screenutil: ^5.9.3
+
+  # Localization / formatting
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Flutter localization code generation
+  generate: true
