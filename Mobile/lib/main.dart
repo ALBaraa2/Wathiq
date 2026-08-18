@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
+import 'config/routes/app_routes.dart';
+import 'config/theme/app_theme.dart';
+
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const WathiqApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WathiqApp extends StatelessWidget {
+  const WathiqApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: Center(child: Text("data"),),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Wathiq',
+
+      theme: AppTheme.light,
+
+      routerConfig: AppRoutes.router,
     );
   }
 }
-
