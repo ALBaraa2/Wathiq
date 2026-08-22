@@ -35,4 +35,32 @@ class User extends Authenticatable
             'locked_until' => 'datetime',
         ];
     }
+
+    public function tenantMemberships()
+    {
+        return $this->hasMany(TenantMembership::class);
+    }
+
+    public function identityDocuments()
+    {
+        return $this->hasMany(IdentityDocument::class);
+    }
+
+    public function hasRole(string $roleCode): bool
+    {
+        return $this->tenantMemberships()
+            ->where('status', 'active')
+            ->whereHas('role', fn ($q) => $q->where('code', $roleCode))
+            ->exists();
+    }
+
+    /**
+     * UC-040: gates renting/buying/contracting. Browsing the catalog stays
+     * open regardless — this is checked only at the point of action, by
+     * whichever controller performs that action.
+     */
+    public function isKycVerified(): bool
+    {
+        return $this->identityDocuments()->where('status', 'approved')->exists();
+    }
 }

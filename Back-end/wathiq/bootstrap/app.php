@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'auth.jwt' => \App\Http\Middleware\JwtAuthenticate::class,
+            'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'kyc.verified' => \App\Http\Middleware\EnsureUserIsVerified::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\IdentityDocumentController as AdminIdentityDocumentController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Kyc\IdentityDocumentController as KycIdentityDocumentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/auth')->group(function () {
@@ -14,3 +16,18 @@ Route::prefix('v1/auth')->group(function () {
 });
 
 Route::get('/user', [AuthController::class, 'me'])->middleware('auth.jwt');
+
+// UC-040 KYC: the authenticated user submits their own documents.
+Route::prefix('v1/kyc')->middleware('auth.jwt')->group(function () {
+    Route::post('documents', [KycIdentityDocumentController::class, 'store']);
+    Route::get('status', [KycIdentityDocumentController::class, 'status']);
+});
+
+// UC-031/032-style admin review queue for KYC submissions.
+Route::prefix('v1/admin/kyc')->middleware(['auth.jwt', 'admin'])->name('admin.kyc.')->group(function () {
+    Route::get('documents', [AdminIdentityDocumentController::class, 'index'])->name('documents.index');
+    Route::get('documents/{identityDocument}', [AdminIdentityDocumentController::class, 'show'])->name('documents.show');
+    Route::get('documents/{identityDocument}/image/{which}', [AdminIdentityDocumentController::class, 'image'])->name('image');
+    Route::post('documents/{identityDocument}/approve', [AdminIdentityDocumentController::class, 'approve'])->name('documents.approve');
+    Route::post('documents/{identityDocument}/reject', [AdminIdentityDocumentController::class, 'reject'])->name('documents.reject');
+});
