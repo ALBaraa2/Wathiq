@@ -52,4 +52,21 @@ class AppColors {
   static const Color textSecondary = Color(0xFF667085);
 
   static const Color disabled = Color(0xFFBFC3CC);
+
+
+
+  // property
+
+  static const Color primaryDark = Color(0xFF00113A);
+  static const Color overlayDark = Color.fromRGBO(0, 35, 102, 0.95);
+  static const Color overlayMedium = Color.fromRGBO(0, 0, 0, 0.60);
+  static const Color overlayLight = Color.fromRGBO(0, 0, 0, 0.20);
+
+  static const Color white70 = Color.fromRGBO(255, 255, 255, 0.7);
+
+  static const Color shadowColor = Color.fromRGBO(0, 0, 0, 0.25);
+  static const Color cardSelectedBg = Color.fromRGBO(255, 255, 255, 0.10);
+  static const Color cardUnselectedBg = Color.fromRGBO(255, 255, 255, 0.05);
+  static const Color cardBorder = Color.fromRGBO(255, 255, 255, 0.10);
+  static const Color errorColor = Color(0xFFBE1510);
 }
