@@ -6,7 +6,13 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration
 {
     /**
-     * Module 1 (FR-1.x), NFR-4.3/4.5.
+     * Module 1 (FR-1.x), NFR-4.5.
+     *
+     * Passwordless: identity is proven by a one-time code sent to email (and
+     * later WhatsApp), consumed via app.otp_codes. There is no password_hash
+     * column and no separate "verify email" step — a successful OTP
+     * verification both authenticates and verifies the destination in one
+     * move, since receiving the code already proves ownership.
      *
      * Note on tenancy: `users` is deliberately NOT tenant-scoped. A person may
      * hold membership in more than one company; the membership is what carries
@@ -28,13 +34,12 @@ return new class extends Migration
                 id                 uuid primary key default app.uuid_generate_v7(),
                 email              app.email        not null,
                 phone              app.phone,
-                password_hash      text             not null,
                 status             app.user_status  not null default 'pending_verification',
                 locale             app.locale       not null default 'ar',
                 email_verified_at  timestamptz,
                 phone_verified_at  timestamptz,
                 last_login_at      timestamptz,
-                -- NFR-4.5 brute-force protection. Cleared on successful authentication.
+                -- NFR-4.5 brute-force protection against OTP guessing. Cleared on successful authentication.
                 failed_login_count smallint         not null default 0,
                 locked_until       timestamptz,
                 created_at         timestamptz      not null default now(),
@@ -54,9 +59,6 @@ return new class extends Migration
             create trigger users_touch
                 before update on app.users
                 for each row execute function app.touch_updated_at();
-
-            comment on column app.users.password_hash is
-              'Argon2id preferred, bcrypt acceptable (NFR-4.3). Never plaintext, never reversible encryption.';
         SQL);
     }
 

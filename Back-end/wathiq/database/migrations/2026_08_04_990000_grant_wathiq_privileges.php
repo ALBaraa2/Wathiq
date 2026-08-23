@@ -102,9 +102,9 @@ return new class extends Migration
             grant usage on schema app, knowledge, audit to wathiq_readonly;
             grant select on all tables in schema app, knowledge, audit to wathiq_readonly;
 
-            -- KYC documents, deeds and session tokens are not analytics data.
+            -- KYC documents, deeds and session/OTP secrets are not analytics data.
             revoke select on app.identity_documents, app.ownership_documents, app.user_sessions,
-                             app.one_time_tokens
+                             app.one_time_tokens, app.otp_codes
             from wathiq_readonly;
 
             ------------------------------------------------------------------

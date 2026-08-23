@@ -95,6 +95,15 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
+            // Without this, the session timezone falls back to the Postgres
+            // server's own default (e.g. the host machine's local zone).
+            // Every migration's `default now()` timestamp is generated
+            // DB-side, while application code (Carbon, Eloquent timestamps)
+            // is generated PHP-side using config('app.timezone'). Any skew
+            // between the two silently corrupts every comparison across that
+            // boundary — expiry checks (app.otp_codes, app.user_sessions),
+            // ordering, audit timestamps. Must match app.timezone above.
+            'timezone' => 'UTC',
             // 'public' MUST stay first: CREATE TABLE with no schema qualifier
             // lands in the first entry, and Laravel's own framework tables
             // (migrations, sessions, cache, jobs) belong in public, not in the
