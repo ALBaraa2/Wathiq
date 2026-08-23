@@ -15,7 +15,7 @@ def require_api_key(x_api_key: str = Header(default="")) -> None:
 
 
 def sign_callback(raw_body: bytes, secret: str, timestamp: int | None = None) -> str:
-    """HMAC scheme per AI/docs/PHASE0_DECISIONS.md §5: t=<ts>,v1=<hex digest>."""
+    """HMAC scheme per WATHIQ_AI_SPRINT_PLAN.md's Phase 0 section: t=<ts>,v1=<hex digest>."""
     ts = timestamp if timestamp is not None else int(time.time())
     signed_payload = f"{ts}.".encode() + raw_body
     digest = hmac.new(secret.encode(), signed_payload, hashlib.sha256).hexdigest()

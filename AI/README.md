@@ -1,8 +1,8 @@
 # Wathiq AI Legal Engine
 
 FastAPI service, scaffolded per `WATHIQ_AI_SPRINT_PLAN.md` Catch-Up Sprint 1A.
-See `docs/PHASE0_DECISIONS.md` for the provider/stack decisions and `openapi.yaml`
-for the wire contract with the Laravel back-end.
+See `WATHIQ_AI_SPRINT_PLAN.md`'s Phase 0 section for the provider/stack decisions
+and `openapi.yaml` for the wire contract with the Laravel back-end.
 
 ## Run
 

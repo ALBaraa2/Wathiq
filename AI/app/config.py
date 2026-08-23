@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Loaded from env vars / .env — see AI/docs/PHASE0_DECISIONS.md §6."""
+    """Loaded from env vars / .env — see WATHIQ_AI_SPRINT_PLAN.md's Phase 0 section."""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

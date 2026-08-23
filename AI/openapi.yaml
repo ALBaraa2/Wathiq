@@ -4,7 +4,7 @@ info:
   version: "0.1.0"
   description: >
     Wire contract between the Laravel back-end and the AI Legal Engine (FastAPI).
-    See AI/docs/PHASE0_DECISIONS.md for the HMAC/API-key scheme this implements.
+    See AI/WATHIQ_AI_SPRINT_PLAN.md's Phase 0 section for the HMAC/API-key scheme this implements.
 
 servers:
   - url: http://localhost:8001
