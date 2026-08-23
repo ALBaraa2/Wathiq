@@ -11,39 +11,72 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Flutter localization
+  # ─────────────────────────────────────────────
+  # Flutter Localization
+  # ─────────────────────────────────────────────
   flutter_localizations:
     sdk: flutter
 
-  # iOS-style icons
+  # ─────────────────────────────────────────────
+  # iOS-style Icons
+  # ─────────────────────────────────────────────
   cupertino_icons: ^1.0.8
 
+  # ─────────────────────────────────────────────
   # Fonts
+  # ─────────────────────────────────────────────
   google_fonts: ^6.3.2
 
+  # ─────────────────────────────────────────────
+  # SVG Images
+  # ─────────────────────────────────────────────
+  flutter_svg: ^2.2.1
+
+  # ─────────────────────────────────────────────
   # Networking
+  # ─────────────────────────────────────────────
   dio: ^5.9.0
 
+  # ─────────────────────────────────────────────
   # Routing
+  # ─────────────────────────────────────────────
   go_router: ^16.2.0
 
-  # State management
+  # ─────────────────────────────────────────────
+  # State Management
+  # ─────────────────────────────────────────────
   flutter_bloc: ^9.1.1
 
+  # ─────────────────────────────────────────────
   # Responsive UI
+  # ─────────────────────────────────────────────
   flutter_screenutil: ^5.9.3
 
-  # Localization / formatting
+  # ─────────────────────────────────────────────
+  # Localization / Formatting
+  # ─────────────────────────────────────────────
   intl: ^0.20.2
+
+  country_code_picker: ^3.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Linting
   flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
 
-  # Flutter localization code generation
+  # ─────────────────────────────────────────────
+  # Localization Code Generation
+  # ─────────────────────────────────────────────
   generate: true
+
+  # ─────────────────────────────────────────────
+  # Assets
+  # ─────────────────────────────────────────────
+  assets:
+    - assets/images/
+    - assets/svg/

@@ -161,21 +161,17 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
-
           minimumSize: const Size(
             double.infinity,
             52,
           ),
-
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-
           textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
-
           elevation: 0,
         ),
       ),
