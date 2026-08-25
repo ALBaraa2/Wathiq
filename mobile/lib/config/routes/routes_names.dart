@@ -15,4 +15,8 @@ class RouteNames {
   static const String signupScreen = '/signupScreen';
   static const String forgotPasswordScreen = '/forgotPasswordScreen';
   static const String lsitpro = '/add_property_step1_screen';
+
+  //property
+    static const String addPropertyType = '/addPropertyTypeScreen';
+
 }

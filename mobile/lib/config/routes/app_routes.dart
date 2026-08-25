@@ -10,6 +10,7 @@ import '../../features/auth/presentation/pages/phone_register_screen.dart';
 import '../../features/onboarding/presentation/onboardin_screen.dart';
 import '../../features/onboarding/presentation/onboarding_login_screen.dart';
 import '../../features/onboarding/presentation/splash_screen.dart';
+import '../../features/property/presentation/pages/add_property_page_one.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -19,7 +20,7 @@ class AppRoutes {
   // ─────────────────────────────────────────────
 
   static final GoRouter router = GoRouter(
-    initialLocation: RouteNames.onboardingScreen,
+    initialLocation: RouteNames.addPropertyType,
 
     routes: [
       // ─────────────────────────────────────────────
@@ -91,6 +92,19 @@ class AppRoutes {
         name: 'emailRegisterScreen',
         builder: (context, state) {
           return const EmailRegisterScreen();
+        },
+      ),
+
+      
+      // ─────────────────────────────────────────────
+      // Property
+      // ─────────────────────────────────────────────
+
+      GoRoute(
+        path: RouteNames.addPropertyType,
+        name: 'addPropertyTypeScreen',
+        builder: (context, state) {
+          return const ListYourPropertyScreen();
         },
       ),
 
