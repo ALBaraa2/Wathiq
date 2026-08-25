@@ -27,6 +27,7 @@
 Compressed: decisions block everything else, so they go first and fast. Skeleton runs in parallel once decided.
 
 **Phase 0 — Decisions & foundations**
+<<<<<<< HEAD
 - [ ] Pin embedding model for 1536-d (`text-embedding-3-small` or equivalent) — or replace dim in `000601_*` before any seeding
 - [ ] Pin LLM provider (Azure OpenAI vs. OpenAI vs. Copilot-API) behind a provider interface
 - [ ] Ratify Python/FastAPI + LangGraph, pgvector (no HNSW at launch) — already implied by schema, just confirm in writing
@@ -42,6 +43,25 @@ Compressed: decisions block everything else, so they go first and fast. Skeleton
 - [ ] Structured logging, trace ids, usage metrics (tokens, latency)
 - [ ] API key check inbound, HMAC signing outbound
 - **Exit:** service boots, `/health` → 200, smoke job round-trips.
+=======
+- [x] **Embedding model — Qwen3-Embedding-8B** (Alibaba/Qwen, open-weight) via **DeepInfra**'s OpenAI-compatible API. Native output is 4096-d, truncated to **1536** via the `dimensions` request param to match `knowledge.chunks.embedding vector(1536)` already migrated — no schema edit, no re-embed risk. Picked over OpenAI's text-embedding-3 line after comparing DeepInfra's whole catalog: best multilingual score of the viable options, same-or-lower price, and 32k context (vs OpenAI's 8k) so a full law article chunks without truncating. Arabic quality is still unverified in production — Sprint 5's golden-set harness is the real gate; revisit here + `000601_*` if it scores badly.
+- [x] **LLM provider — DeepSeek-V4-Pro** (DeepSeek AI) via **OpenRouter** (`deepseek/deepseek-v4-pro`) — cheaper there than DeepSeek's own direct API, plus failover across ~17 backend providers. Picked over Azure OpenAI and explicitly over Claude (ruled out on cost): cheapest model found that's actually reasoning-tuned (needed for `analyze_contract`'s multi-step finding logic), 1M context fits a full contract + every retrieved citation in one call. SRS's "Microsoft Copilot (replaceable)" — this is the swap; `app/providers/base.py`'s `LLMProvider` interface keeps it swappable again. Trade-off: this leaves Azure's data-residency story for the *database* only (§ below) — no residency requirement has been raised against DeepSeek/OpenRouter specifically, revisit if one is.
+- [x] Ratify Python/FastAPI + LangGraph, pgvector (no HNSW at launch) — already implied by schema/SRS, this line just confirms it in writing. Package manager: `uv`.
+- [x] AI service's restricted Postgres role (`knowledge.*` only, no `app.contracts`) — **already existed**, `2026_08_04_990000_grant_wathiq_privileges.php` (`wathiq_ai` role: full `knowledge.*`, narrow `app.jurisdictions`/`app.countries`/`app.ai_jobs` slice, explicit revoke on `app.contracts` etc.). Nothing built here; `app.assert_privilege_invariants()` already asserts the boundary in CI.
+- [x] OpenAPI wire contract: `generate_contract`/`analyze_contract` request/response + webhook callback shape + HMAC scheme — `AI/openapi.yaml`. HMAC: outbound callback signed `HMAC-SHA256(webhook_secret, timestamp + "." + raw_body)`, header `X-Wathiq-Signature: t=<ts>,v1=<hex digest>`, Laravel rejects if >5 min old (replay defense via `ops.webhook_deliveries` unique index). Inbound uses static `X-API-Key` — fine for one internal caller, revisit if a second caller needs direct access.
+- [x] Shared `.env` config — root `.env.example` + `AI/.env.example`, both sides read the same `AI_SERVICE_URL`/`AI_WEBHOOK_SECRET`/`AI_SERVICE_API_KEY` — kept in sync manually until there's a shared secrets store.
+- **Exit:** all six items resolved 2026-08-23, embedding dimension final (1536, truncated from Qwen3's native 4096).
+
+**Deferred — OCR for scanned documents** (KYC IDs, deeds, legacy paper contracts; Phase-3-and-later scope per `AI_IMPLEMENTATION_PLAN.md`, not blocking Phase 1): GLM-OCR is cheap/managed but **confirmed no Arabic support** (official 8-language list excludes it, fails on real Arabic input). QARI-OCR (Qwen2-VL/Qwen3-VL fine-tune) is purpose-built for Arabic and open-weight but has **no managed hosting anywhere** — self-host only. User wants the accurate option over the cheap one here, so QARI-OCR self-hosted is the leading candidate. Hosting plan for when it's built: **Modal** — both QARI-OCR and Qwen3-Embedding-8B fit Modal's cheapest GPU (A10G, ~$1.10/hr); the $30/month free credit (~26 GPU-hours) covers dev/testing, not always-on production. Bake weights into the image/a Volume, don't re-download on every cold start.
+
+**1A — AI service skeleton**
+- [x] Scaffold `AI/` (FastAPI + uv/poetry + LangGraph) — LangGraph dep deferred to 1C when agents are actually built, see `AI/README.md`
+- [x] `LLMProvider` + `EmbeddingProvider` abstractions, one real adapter + one fake/deterministic adapter for tests — `app/providers/{base,openai_compatible,fake}.py`
+- [x] `/health`, `/v1/jobs`, callback route — `/health` + `/v1/jobs` live; `/v1/jobs/{id}/callback` is Laravel-side (1E.4), documented in `openapi.yaml`
+- [x] Structured logging, trace ids, usage metrics (tokens, latency) — `app/logging_conf.py`, timing middleware in `app/main.py`; per-call token/latency usage wiring lands with the real agents (1C/1D)
+- [x] API key check inbound, HMAC signing outbound — `app/security.py`
+- **Exit:** service boots, `/health` → 200, smoke job round-trips. Verified 2026-08-23 (`uv run pytest` 3 passed; live `curl /health` → `{"status":"ok"}`)
+>>>>>>> 85dfb4ebd42477dafd8585e46bafb60c90a69208
 
 ---
 

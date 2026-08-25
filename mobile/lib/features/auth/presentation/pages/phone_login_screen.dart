@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../config/routes/routes_names.dart';
 import '../../../../config/theme/app_colors.dart';
 import '../../../../core/constant/app_icons.dart';
@@ -110,10 +111,10 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
+                    context.go(
+                         
                         RouteNames.onboardingScreen,
-                            (route) => false,
+                          
                       );
                     },
                     child: const Text("Sign up"),

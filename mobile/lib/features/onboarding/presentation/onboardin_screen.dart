@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../config/routes/routes_names.dart';
 import '../../../config/theme/app_colors.dart';
 import '../../../core/constant/app_icons.dart';
 import '../../../core/constant/images_path.dart';
 import '../../../core/widget/app_button.dart';
-
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -21,17 +21,12 @@ class OnBoardingScreen extends StatelessWidget {
         children: [
           // Background Image
           Positioned.fill(
-            child: Image.asset(
-              ImagePath.background,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(ImagePath.background, fit: BoxFit.cover),
           ),
 
           // Optional dark overlay for better text readability
           Positioned.fill(
-            child: Container(
-              color: AppColors.black.withValues(alpha: 0.25),
-            ),
+            child: Container(color: AppColors.black.withValues(alpha: 0.25)),
           ),
 
           // Content
@@ -68,7 +63,7 @@ class OnBoardingScreen extends StatelessWidget {
                   AppElevatedButton(
                     text: 'Continue with Email',
                     onPressed: () {
-                      // Email authentication
+                      context.go(RouteNames.emailRegisterScreen);
                     },
                     backgroundColor: AppColors.white,
                     enableBorder: true,
@@ -95,17 +90,17 @@ class OnBoardingScreen extends StatelessWidget {
                   AppElevatedButton(
                     text: ' With Phone Number',
                     onPressed: () {
-                      // Phone authentication
+                       context.go(RouteNames.phoneRegisterScreen);
                     },
                     backgroundColor: AppColors.primary,
                     enableBorder: false,
                     height: 56,
                     borderRadius: 9999,
-                    preIcon:SvgPicture.asset(
+                    preIcon: SvgPicture.asset(
                       AppIcons.phone,
                       width: 24,
                       height: 24,
-                    ) ,
+                    ),
                     textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -122,26 +117,18 @@ class OnBoardingScreen extends StatelessWidget {
                       Text(
                         "Already have an account?",
                         style: textTheme.bodySmall?.copyWith(
-                          color: AppColors.white.withValues(
-                            alpha: 0.7,
-                          ),
+                          color: AppColors.white.withValues(alpha: 0.7),
                         ),
                       ),
 
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RouteNames.onboardingLoginScreen,
-                                (route) => false,
-                          );
+                          context.go(RouteNames.onboardingLoginScreen);
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.white,
                         ),
-                        child: const Text(
-                          "Sign in",
-                        ),
+                        child: const Text("Sign in"),
                       ),
                     ],
                   ),

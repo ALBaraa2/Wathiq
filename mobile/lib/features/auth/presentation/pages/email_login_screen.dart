@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../config/routes/routes_names.dart';
 import '../../../../config/theme/app_colors.dart';
 import '../../../../core/constant/app_icons.dart';
 import '../../../../core/widget/app_button.dart';
 import '../../../../core/widget/input_field.dart';
-
+import '../widgets/otp_bottom_sheet.dart';
 
 class EmailLoginScreen extends StatefulWidget {
   const EmailLoginScreen({super.key});
@@ -32,9 +33,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.maybePop(context),
-          icon: SvgPicture.asset(
-              AppIcons.back,
-          ),
+          icon: SvgPicture.asset(AppIcons.back),
         ),
       ),
       body: SafeArea(
@@ -84,7 +83,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                 child: AppElevatedButton(
                   text: 'Continue with Email',
                   onPressed: () {
-                    // Email authentication
+                    showOtpBottomSheet(context);
                   },
                   backgroundColor: AppColors.white,
                   enableBorder: true,
@@ -118,11 +117,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteNames.onboardingScreen,
-                            (route) => false,
-                      );
+                      context.go(RouteNames.onboardingScreen);
                     },
                     child: const Text("Sign up"),
                   ),
@@ -136,4 +131,13 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
       ),
     );
   }
+}
+
+void showOtpBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (_) => const OtpBottomSheet(),
+  );
 }

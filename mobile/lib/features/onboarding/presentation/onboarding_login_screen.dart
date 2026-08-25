@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../config/routes/routes_names.dart';
 import '../../../config/theme/app_colors.dart';
@@ -20,19 +21,12 @@ class OnBoardingLoginScreen extends StatelessWidget {
         children: [
           // Background Image
           Positioned.fill(
-            child: Image.asset(
-              ImagePath.background,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(ImagePath.background, fit: BoxFit.cover),
           ),
 
           // Dark overlay for better readability
           Positioned.fill(
-            child: Container(
-              color: AppColors.black.withValues(
-                alpha: 0.25,
-              ),
-            ),
+            child: Container(color: AppColors.black.withValues(alpha: 0.25)),
           ),
 
           // Content
@@ -69,7 +63,7 @@ class OnBoardingLoginScreen extends StatelessWidget {
                   AppElevatedButton(
                     text: 'Continue with Email',
                     onPressed: () {
-                      // Email authentication
+                    context.go(RouteNames.emailLoginScreen); 
                     },
                     backgroundColor: AppColors.white,
                     enableBorder: true,
@@ -95,16 +89,13 @@ class OnBoardingLoginScreen extends StatelessWidget {
                   AppElevatedButton(
                     text: 'Continue with Phone Number',
                     onPressed: () {
-                      // Phone authentication
+                      context.go(RouteNames.phoneLoginScreen);
                     },
                     backgroundColor: AppColors.primary,
                     enableBorder: false,
                     height: 56,
                     borderRadius: 9999,
-                    preIcon: const Icon(
-                      Icons.phone_outlined,
-                      size: 24,
-                    ),
+                    preIcon: const Icon(Icons.phone_outlined, size: 24),
                     textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -121,25 +112,17 @@ class OnBoardingLoginScreen extends StatelessWidget {
                       Text(
                         "Don't have an account?",
                         style: textTheme.bodySmall?.copyWith(
-                          color: AppColors.white.withValues(
-                            alpha: 0.7,
-                          ),
+                          color: AppColors.white.withValues(alpha: 0.7),
                         ),
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RouteNames.onboardingScreen,
-                                (route) => false,
-                          );
+                          context.go(RouteNames.onboardingScreen);
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.white,
                         ),
-                        child: const Text(
-                          "Sign up",
-                        ),
+                        child: const Text("Sign up"),
                       ),
                     ],
                   ),

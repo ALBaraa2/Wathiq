@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constant/app_icons.dart';
 import '../../../../config/routes/routes_names.dart';
 import '../../../../config/theme/app_colors.dart';
 import '../../../../core/constant/images_path.dart';
 import '../../../../core/widget/app_button.dart';
 import '../widgets/phone_number_field.dart';
-
 
 class PhoneRegisterScreen extends StatefulWidget {
   const PhoneRegisterScreen({super.key});
@@ -16,8 +16,7 @@ class PhoneRegisterScreen extends StatefulWidget {
 }
 
 class _PhoneRegisterScreenState extends State<PhoneRegisterScreen> {
-  final TextEditingController _phoneNumberController =
-  TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   @override
   void dispose() {
@@ -33,9 +32,7 @@ class _PhoneRegisterScreenState extends State<PhoneRegisterScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.maybePop(context),
-          icon: SvgPicture.asset(
-            AppIcons.back,
-          ),
+          icon: SvgPicture.asset(AppIcons.back),
         ),
       ),
       body: SafeArea(
@@ -73,9 +70,7 @@ class _PhoneRegisterScreenState extends State<PhoneRegisterScreen> {
 
               const SizedBox(height: 12),
 
-              PhoneNumberField(
-                controller: _phoneNumberController,
-              ),
+              PhoneNumberField(controller: _phoneNumberController),
 
               const SizedBox(height: 24),
 
@@ -90,10 +85,7 @@ class _PhoneRegisterScreenState extends State<PhoneRegisterScreen> {
                   disabledTextColor: AppColors.textSecondary,
                   height: 56,
                   borderRadius: 9999,
-                  postIcon: const Icon(
-                    Icons.arrow_forward,
-                    size: 16,
-                  ),
+                  postIcon: const Icon(Icons.arrow_forward, size: 16),
                 ),
               ),
 
@@ -110,11 +102,7 @@ class _PhoneRegisterScreenState extends State<PhoneRegisterScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteNames.onboardingLoginScreen,
-                            (route) => false,
-                      );
+                      context.go(RouteNames.onboardingLoginScreen);
                     },
                     child: const Text("Sign in"),
                   ),
