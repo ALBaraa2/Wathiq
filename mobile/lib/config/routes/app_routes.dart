@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/config/routes/routes_names.dart';
-
+import 'package:mobile/features/verification/presentation/verification_pending_screen.dart';
+import 'package:mobile/features/verification/presentation/verify_identity_screen.dart';
+import 'package:mobile/features/verification/presentation/verify_selfie_identity_screen.dart';
 
 import '../../features/auth/presentation/pages/email_login_screen.dart';
 import '../../features/auth/presentation/pages/email_registe_screen.dart';
@@ -20,13 +22,12 @@ class AppRoutes {
   // ─────────────────────────────────────────────
 
   static final GoRouter router = GoRouter(
-    initialLocation: RouteNames.addPropertyType,
+    initialLocation: RouteNames.splash,
 
     routes: [
       // ─────────────────────────────────────────────
       // Splash
       // ─────────────────────────────────────────────
-
       GoRoute(
         path: RouteNames.splash,
         name: 'splash',
@@ -38,7 +39,6 @@ class AppRoutes {
       // ─────────────────────────────────────────────
       // Onboarding
       // ─────────────────────────────────────────────
-
       GoRoute(
         path: RouteNames.onboardingScreen,
         name: 'onboardingScreen',
@@ -58,7 +58,6 @@ class AppRoutes {
       // ─────────────────────────────────────────────
       // Login
       // ─────────────────────────────────────────────
-
       GoRoute(
         path: RouteNames.phoneLoginScreen,
         name: 'phoneLoginScreen',
@@ -78,7 +77,6 @@ class AppRoutes {
       // ─────────────────────────────────────────────
       // Register
       // ─────────────────────────────────────────────
-
       GoRoute(
         path: RouteNames.phoneRegisterScreen,
         name: 'phoneRegisterScreen',
@@ -95,11 +93,9 @@ class AppRoutes {
         },
       ),
 
-      
       // ─────────────────────────────────────────────
       // Property
       // ─────────────────────────────────────────────
-
       GoRoute(
         path: RouteNames.addPropertyType,
         name: 'addPropertyTypeScreen',
@@ -109,10 +105,31 @@ class AppRoutes {
       ),
 
       // ─────────────────────────────────────────────
-      // Splash
+      // verification
       // ─────────────────────────────────────────────
+      GoRoute(
+        path: RouteNames.verifyIdentityScreen,
+        name: 'verifyIdentityScreen',
+        builder: (context, state) {
+          return const VerifyIdentityScreen();
+        },
+      ),
 
+      GoRoute(
+        path: RouteNames.verifySelfieIdentityScreen,
+        name: 'verifySelfieIdentityScreen',
+        builder: (context, state) {
+          return const VerifySelfieIdentityScreen();
+        },
+      ),
 
+      GoRoute(
+        path: RouteNames.verificationPendingScreen,
+        name: 'verificationPendingScreen',
+        builder: (context, state) {
+          return const VerificationPendingScreen();
+        },
+      ),
     ],
   );
 }

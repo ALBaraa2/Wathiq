@@ -17,6 +17,11 @@ class RouteNames {
   static const String lsitpro = '/add_property_step1_screen';
 
   //property
-    static const String addPropertyType = '/addPropertyTypeScreen';
+  static const String addPropertyType = '/addPropertyTypeScreen';
 
+  //verification
+  static const String verifyIdentityScreen = '/verifyIdentityScreen';
+  static const String verifySelfieIdentityScreen =
+      '/verifySelfieIdentityScreen';
+  static const String verificationPendingScreen = '/verificationPendingScreen';
 }
