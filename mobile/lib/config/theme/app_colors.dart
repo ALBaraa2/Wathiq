@@ -8,7 +8,7 @@ class AppColors {
   // ─────────────────────────────────────────────
 
   /// Primary brand color
-  static const Color primary = Color(0xFF002366);
+  static const Color primary = Color(0xFF00113A);
 
   /// Secondary brand color
   static const Color secondary = Color(0xFFB5C4FF);
@@ -47,7 +47,7 @@ class AppColors {
 
   static const Color border = Color(0xFFD9DDE7);
 
-  static const Color textPrimary = Color(0xFF002366);
+  static const Color textPrimary = Color(0xFF00113A);
 
   static const Color textSecondary = Color(0xFF667085);
 
@@ -69,4 +69,6 @@ class AppColors {
   static const Color cardUnselectedBg = Color.fromRGBO(255, 255, 255, 0.05);
   static const Color cardBorder = Color.fromRGBO(255, 255, 255, 0.10);
   static const Color errorColor = Color(0xFFBE1510);
+
+  static const Color backgroundGradient = Color(0xFF002366) ;
 }

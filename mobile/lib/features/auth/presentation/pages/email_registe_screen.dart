@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../config/routes/routes_names.dart';
 import '../../../../config/theme/app_colors.dart';
 import '../../../../core/constant/app_icons.dart';
+import '../../../../core/constant/images_path.dart';
+import '../../../../core/constant/strings.dart';
 import '../../../../core/widget/app_button.dart';
 import '../../../../core/widget/input_field.dart';
 
@@ -28,7 +31,14 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      backgroundColor: AppColors.primary,
+      extendBodyBehindAppBar: true,
+
       appBar: AppBar(
+        backgroundColor: AppColors.transparent,
+        elevation: 0,
+        surfaceTintColor: AppColors.transparent,
+
         leading: IconButton(
           onPressed: () => Navigator.maybePop(context),
           icon: SvgPicture.asset(
@@ -36,103 +46,171 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 27),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final screenWidth = constraints.maxWidth;
+
+          final horizontalPadding =
+          (screenWidth * 0.071).clamp(20.0, 32.0);
+
+          return Stack(
+            fit: StackFit.expand,
             children: [
-              const SizedBox(height: 48),
-
-              Text(
-                "Let's get started!",
-                style: textTheme.headlineLarge?.copyWith(
-                  color: AppColors.primary,
+// -----------------------------------------------------------
+// Background image
+// -----------------------------------------------------------
+              Positioned.fill(
+                child: Image.asset(
+                  ImagePath.background,
+                  fit: BoxFit.cover,
                 ),
               ),
 
-              const SizedBox(height: 16),
-
-              Text(
-                "Enter your email address to create your account",
-                style: textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              Text(
-                "Enter Email",
-                style: textTheme.labelMedium?.copyWith(
-                  color: AppColors.textPrimary,
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
-              InputFieldWidget(
-                hint: 'example@mail.com',
-                controller: _emailController,
-              ),
-
-              const SizedBox(height: 24),
-
-              SizedBox(
-                width: double.infinity,
-                child: AppElevatedButton(
-                  text: 'Continue with Email',
-                  onPressed: () {
-                    // Email authentication
-                  },
-                  backgroundColor: AppColors.white,
-                  enableBorder: true,
-                  borderColor: AppColors.border,
-                  borderWidth: 1,
-                  height: 58,
-                  borderRadius: 9999,
-                  preIcon: SvgPicture.asset(
-                    AppIcons.send,
-                    width: 24,
-                    height: 24,
-                  ),
-                  textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primary,
-                  ),
-                ),
-              ),
-
-              const Spacer(),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.textSecondary,
+// -----------------------------------------------------------
+// Same gradient overlay as the onboarding screen
+// -----------------------------------------------------------
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.black.withValues(alpha: 0.2),
+                        AppColors.black.withValues(alpha: 0.60),
+                        AppColors.backgroundGradient.withValues(alpha: 0.95),
+                      ],
+                      stops: const [
+                        0.0,
+                        0.40,
+                        1.0,
+                      ],
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                    context.go(
-                       
-                        RouteNames.onboardingLoginScreen,
-                          
-                      );
-                    },
-                    child: const Text("Sign in"),
-                  ),
-                ],
+                ),
               ),
 
-              const SizedBox(height: 24),
+// -----------------------------------------------------------
+// Main content
+// -----------------------------------------------------------
+              SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+// Space below the transparent AppBar.
+                      const SizedBox(height: 48),
+
+                      Text(
+                        AppStrings.getStarted,
+                        style: textTheme.headlineLarge?.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Text(
+                        AppStrings.enterYourEmailAdd,
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        AppStrings.enterEmail,
+                        style: textTheme.labelMedium?.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      InputFieldWidget(
+                        hint: AppStrings.emailHintText,
+                        controller: _emailController,
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: AppElevatedButton(
+                          text: AppStrings.sendCode,
+                          onPressed: () {
+// Email authentication
+                          },
+                          backgroundColor: AppColors.primary,
+                          borderWidth: 1,
+                          height: 58,
+                          borderRadius: 9999,
+                          postIcon: SvgPicture.asset(
+                            AppIcons.send,
+                          ),
+                        ),
+                      ),
+
+                      const Spacer(),
+
+                      Center(
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              AppStrings.alreadyHaveAccount,
+                              textAlign: TextAlign.center,
+                              style: textTheme.bodySmall?.copyWith(
+                                color: AppColors.white.withValues(
+                                  alpha: 0.47,
+                                ),
+                              ),
+                            ),
+
+                            TextButton(
+                              onPressed: () {
+                                context.go(
+                                  RouteNames.onboardingLoginScreen,
+                                );
+                              },
+                              style: TextButton.styleFrom(
+                                foregroundColor: AppColors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                  vertical: 4,
+                                ),
+                                minimumSize: Size.zero,
+                                tapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: Text(
+                                AppStrings.signIn,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+                    ],
+                  ),
+                ),
+              ),
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 }
+

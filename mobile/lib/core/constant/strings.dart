@@ -45,4 +45,17 @@ class AppStrings {
   static const String specifyPropertyType = 'Specify property type';
   static const String specifyPropertyTypeHint = 'e.g. Studio, Farm...';
   static const String continueText = 'Continue';
+
+  static const String onboardingTitle = ' Find Your Dream \nHome on the Go';
+  static const String onboardingSubtitle = "Scroll, Select, and Let's Settle In!";
+  static const String continueWithEmail = 'Continue with Email';
+  static const String continueWithPhone = ' With Phone Number';
+  static const String alreadyHaveAccount = 'Already have an account?';
+  static const String signIn = 'Sign in';
+  static const String enterEmail = 'Enter Email';
+  static const String emailHintText = 'example@mail.com' ;
+  static const String sendCode = 'Send Code' ;
+  static const String getStarted = 'Let\'s get started!';
+  static const String enterYourEmailAdd = "Enter your email address to create your account";
+
 }

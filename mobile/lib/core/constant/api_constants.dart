@@ -1,7 +1,7 @@
 class ApiConstants {
   ApiConstants._();
 
-  static const String baseUrl = 'YOUR_API_BASE_URL';
+  static const String baseUrl = 'http://127.0.0.1:8001';
 
   // Add your endpoints here later.
   static const String login = '/login/';
