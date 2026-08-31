@@ -53,8 +53,6 @@ class AppColors {
 
   static const Color disabled = Color(0xFFBFC3CC);
 
-
-
   // property
 
   static const Color primaryDark = Color(0xFF00113A);
@@ -63,10 +61,17 @@ class AppColors {
   static const Color overlayLight = Color.fromRGBO(0, 0, 0, 0.20);
 
   static const Color white70 = Color.fromRGBO(255, 255, 255, 0.7);
+  static const Color white60 = Color.fromRGBO(255, 255, 255, 0.6);
+  static const Color white40 = Color.fromRGBO(255, 255, 255, 0.4);
 
   static const Color shadowColor = Color.fromRGBO(0, 0, 0, 0.25);
   static const Color cardSelectedBg = Color.fromRGBO(255, 255, 255, 0.10);
   static const Color cardUnselectedBg = Color.fromRGBO(255, 255, 255, 0.05);
   static const Color cardBorder = Color.fromRGBO(255, 255, 255, 0.10);
   static const Color errorColor = Color(0xFFBE1510);
+
+  static const Color iconBg = Color.fromRGBO(226, 226, 229, 0.2);
+
+  static const Color card2SelectedBg = Color.fromRGBO(0, 63, 156, 0.2);
+  static const Color card2UnselectedBg = Color.fromRGBO(195, 198, 214, 0.3);
 }

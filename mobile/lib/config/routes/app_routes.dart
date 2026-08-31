@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/config/routes/routes_names.dart';
+ 
 import 'package:mobile/features/verification/presentation/verification_pending_screen.dart';
 import 'package:mobile/features/verification/presentation/verify_identity_screen.dart';
 import 'package:mobile/features/verification/presentation/verify_selfie_identity_screen.dart';
-
+ 
+import 'package:mobile/features/property/presentation/pages/add_property_page_two.dart';
+ 
 import '../../features/auth/presentation/pages/email_login_screen.dart';
 import '../../features/auth/presentation/pages/email_registe_screen.dart';
 import '../../features/auth/presentation/pages/phone_login_screen.dart';
@@ -13,6 +16,7 @@ import '../../features/onboarding/presentation/onboardin_screen.dart';
 import '../../features/onboarding/presentation/onboarding_login_screen.dart';
 import '../../features/onboarding/presentation/splash_screen.dart';
 import '../../features/property/presentation/pages/add_property_page_one.dart';
+import '../../features/property/presentation/pages/add_property_page_three.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -22,8 +26,8 @@ class AppRoutes {
   // ─────────────────────────────────────────────
 
   static final GoRouter router = GoRouter(
-    initialLocation: RouteNames.splash,
-
+     initialLocation: RouteNames.splash,
+ 
     routes: [
       // ─────────────────────────────────────────────
       // Splash
@@ -97,13 +101,28 @@ class AppRoutes {
       // Property
       // ─────────────────────────────────────────────
       GoRoute(
-        path: RouteNames.addPropertyType,
-        name: 'addPropertyTypeScreen',
+        path: RouteNames.addPropertyScreenOne,
+        name: 'addPropertScreenOne',
         builder: (context, state) {
-          return const ListYourPropertyScreen();
+          return const AddPropertyScreenOne();
         },
       ),
 
+
+      GoRoute(
+        path: RouteNames.addPropertyScreenTwo,
+        name: 'addPropertScreenTwo',
+        builder: (context, state) {
+          return const AddPropertyScreenTwo();
+        },
+      ),
+      GoRoute(
+        path: RouteNames.addPropertyScreenThree,
+        name: 'addPropertScreenThree',
+        builder: (context, state) {
+          return const AddPropertyScreenThree();
+        },
+      ),
       // ─────────────────────────────────────────────
       // verification
       // ─────────────────────────────────────────────

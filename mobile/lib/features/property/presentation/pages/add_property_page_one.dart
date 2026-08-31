@@ -1,57 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile/config/routes/routes_names.dart';
+import 'package:mobile/features/property/presentation/widgets/header_widget.dart';
+import 'package:mobile/features/property/presentation/widgets/submit_button_widget.dart';
 
 import '../../../../config/theme/app_colors.dart';
 import '../../../../core/constant/app_icons.dart';
 import '../../../../core/constant/images_path.dart';
 import '../../../../core/constant/strings.dart';
-import '../../../../core/widget/app_button.dart';
-import '../../../../core/widget/input_field.dart';
 import '../widgets/property_input_field_widget.dart';
 
-class ListYourPropertyScreen extends StatefulWidget {
-  const ListYourPropertyScreen({super.key});
+class AddPropertyScreenOne extends StatefulWidget {
+  const AddPropertyScreenOne({super.key});
 
   @override
-  State<ListYourPropertyScreen> createState() => _ListYourPropertyScreenState();
+  State<AddPropertyScreenOne> createState() => _AddPropertyScreenOneState();
 }
 
-class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
+class _AddPropertyScreenOneState extends State<AddPropertyScreenOne> {
   bool _isForSaleSelected = true;
   int _selectedPropertyTypeIndex = 0;
   final TextEditingController _customTypeController = TextEditingController();
 
   final List<Map<String, String>> _propertyTypes = const [
-    {
-      'title': AppStrings.propertyApartment,
-      'selectedIcon': AppIcons.apartmentSelected,
-      'unselectedIcon': AppIcons.apartmentUnselected,
-    },
-    {
-      'title': AppStrings.propertyHouse,
-      'selectedIcon': AppIcons.houseSelected,
-      'unselectedIcon': AppIcons.houseUnselected,
-    },
-    {
-      'title': AppStrings.propertyVilla,
-      'selectedIcon': AppIcons.villaSelected,
-      'unselectedIcon': AppIcons.villaUnselected,
-    },
-    {
-      'title': AppStrings.propertyLand,
-      'selectedIcon': AppIcons.landSelected,
-      'unselectedIcon': AppIcons.landUnselected,
-    },
-    {
-      'title': AppStrings.propertyShop,
-      'selectedIcon': AppIcons.shopSelected,
-      'unselectedIcon': AppIcons.shopUnselected,
-    },
-    {
-      'title': AppStrings.propertyOther,
-      'selectedIcon': AppIcons.otherSelected,
-      'unselectedIcon': AppIcons.otherUnselected,
-    },
+    {'title': AppStrings.propertyApartment, 'icon': AppIcons.apartment},
+    {'title': AppStrings.propertyVilla, 'icon': AppIcons.villa},
+    {'title': AppStrings.propertyLand, 'icon': AppIcons.land},
+    {'title': AppStrings.propertyShop, 'icon': AppIcons.shop},
+    {'title': AppStrings.propertyHouse, 'icon': AppIcons.house},
+
+    {'title': AppStrings.propertyOther, 'icon': AppIcons.other},
   ];
 
   @override
@@ -70,51 +49,38 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
           Positioned.fill(
             child: Image.asset(ImagePath.background, fit: BoxFit.cover),
           ),
-          // Background Gradient Overlay
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                //checked if needed later
-                // gradient: LinearGradient(
-                //   begin: Alignment.bottomCenter,
-                //   end: Alignment.topCenter,
-                //   stops: [0.0, 0.4, 1.0],
-                //   colors: [
-                //     AppColors.overlayDark,
-                //     AppColors.overlayMedium,
-                //     AppColors.overlayLight,
-                //   ],
-                // ),
-              ),
-            ),
-          ),
 
           // Main Content
           SafeArea(
             child: Column(
               children: [
-                _buildHeader(context),
+                HeaderWidget(
+                  title: AppStrings.listYourPropertyTitle,
+                  subTitle: AppStrings.listYourPropertyStep1,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(
-                     
-                      vertical: 16.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         _buildListingTypeSection(),
+                        _buildListingTypeSection(),
                         const SizedBox(height: 24),
                         _buildPropertyTypeGrid(),
                         const SizedBox(height: 24),
                         if (_selectedPropertyTypeIndex == 5) ...[
                           _buildCustomTypeInput(),
-                         const SizedBox(height: 33),
+                          const SizedBox(height: 33),
                         ],
-                         if (_selectedPropertyTypeIndex != 5) const SizedBox(height: 65),
-                         _buildSubmitButton(),
+                        if (_selectedPropertyTypeIndex != 5)
+                          const SizedBox(height: 65),
+                        SubmitButtonWidget(
+                          onPressed: () {
+                            context.push(RouteNames.addPropertyScreenTwo);
+                          },
+                        ),
                         const SizedBox(height: 16),
                       ],
                     ),
@@ -123,52 +89,6 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () => Navigator.maybePop(context),
-            icon: SvgPicture.asset(
-              AppIcons.back,
-              width: 20,
-              height: 20,
-              colorFilter: const ColorFilter.mode(
-                AppColors.white,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  AppStrings.listYourPropertyTitle,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  AppStrings.listYourPropertyStep1,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.white70,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 48), // Balance back icon space
         ],
       ),
     );
@@ -280,9 +200,8 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
               final item = _propertyTypes[index];
               return _buildPropertyCard(
                 title: item['title']!,
-                iconPath: isSelected
-                    ? item['selectedIcon']!
-                    : item['unselectedIcon']!,
+                iconPath:   item['icon']!
+                   ,
                 isSelected: isSelected,
                 onTap: () => setState(() => _selectedPropertyTypeIndex = index),
               );
@@ -316,7 +235,10 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(iconPath, width: 24, height: 24),
+            SvgPicture.asset(iconPath,colorFilter: ColorFilter.mode(
+                  isSelected ? AppColors.white : AppColors.white60,
+                  BlendMode.srcIn,
+                ),),
             const SizedBox(height: 8),
             Text(
               title,
@@ -362,21 +284,6 @@ class _ListYourPropertyScreenState extends State<ListYourPropertyScreen> {
             hint: AppStrings.specifyPropertyTypeHint,
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSubmitButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: AppElevatedButton(
-        text: AppStrings.continueText,
-        height: 56,width: double.infinity,
-        borderRadius: 999,
-        backgroundColor: AppColors.primaryDark,
-        onPressed: () {
-          // Business logic / Navigation to next step
-        },
       ),
     );
   }

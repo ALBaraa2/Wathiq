@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/theme/app_colors.dart';
 
- 
 class PropertyInputFieldWidget extends StatelessWidget {
   const PropertyInputFieldWidget({
     super.key,
@@ -12,6 +11,7 @@ class PropertyInputFieldWidget extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.prefixIcon,
+    this.maxLines,
   });
 
   final TextEditingController controller;
@@ -21,6 +21,7 @@ class PropertyInputFieldWidget extends StatelessWidget {
 
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,8 @@ class PropertyInputFieldWidget extends StatelessWidget {
       controller: controller,
       validator: validator,
       obscureText: obscureText,
-
-      style: textTheme.bodyLarge?.copyWith(
-        color: AppColors.white70,
-      ),
+      maxLines: maxLines,
+      style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
 
       decoration: InputDecoration(
         hintText: hint,
@@ -55,45 +54,29 @@ class PropertyInputFieldWidget extends StatelessWidget {
         prefixIconColor: AppColors.textSecondary,
         suffixIconColor: AppColors.textSecondary,
 
-        hintStyle: textTheme.bodyLarge?.copyWith(
-          color: AppColors.textSecondary,
-        ),
+        hintStyle: textTheme.bodyLarge?.copyWith(color: AppColors.white40),
 
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.cardBorder,
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: AppColors.cardBorder, width: 1),
         ),
 
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.white,
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: AppColors.white, width: 1),
         ),
 
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.error,
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: AppColors.error, width: 1),
         ),
 
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.error,
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: AppColors.error, width: 1),
         ),
 
-        errorStyle: textTheme.bodySmall?.copyWith(
-          color: AppColors.error,
-        ),
+        errorStyle: textTheme.bodySmall?.copyWith(color: AppColors.error),
       ),
     );
   }

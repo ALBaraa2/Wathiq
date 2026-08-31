@@ -1,31 +1,40 @@
 class AppIcons {
   AppIcons._();
 
-  static const String apartmentSelected = 'assets/svg/apartment_selected.svg';
-  static const String apartmentUnselected = 'assets/svg/apartment_unselected.svg';
   static const String back = 'assets/svg/back_arrow.svg';
   static const String camera = 'assets/svg/camera.svg';
   static const String cancel = 'assets/svg/cancel.svg';
   static const String error = 'assets/svg/error.svg';
   static const String gallery = 'assets/svg/gallery.svg';
   static const String gmail = 'assets/svg/gmail.svg';
-  static const String houseSelected = 'assets/svg/house_selected.svg';
-  static const String houseUnselected = 'assets/svg/house_unselected.svg';
   static const String identity = 'assets/svg/identity.svg';
-  static const String landSelected = 'assets/svg/land_selected.svg';
-  static const String landUnselected = 'assets/svg/land_unselected.svg';
+
+  static const String apartment  = 'assets/svg/apartment.svg';
+  static const String house = 'assets/svg/house.svg';
+  static const String land = 'assets/svg/land.svg';
+  static const String other  = 'assets/svg/other.svg';
+  static const String shop = 'assets/svg/shop.svg';
+  static const String villa  = 'assets/svg/villa.svg';
+
   static const String language = 'assets/svg/language.svg';
   static const String logout = 'assets/svg/logout.svg';
-  static const String otherSelected = 'assets/svg/other_selected.svg';
-  static const String otherUnselected = 'assets/svg/other_unselected.svg';
   static const String person = 'assets/svg/person.svg';
   static const String phone = 'assets/svg/phone_icon.svg';
   static const String send = 'assets/svg/send.svg';
   static const String settings = 'assets/svg/settings.svg';
   static const String shakeHands = 'assets/svg/shakehands_blue.svg';
-  static const String shopSelected = 'assets/svg/shop_selected.svg';
-  static const String shopUnselected = 'assets/svg/shop_unselected.svg';
   static const String success = 'assets/svg/success.svg';
-  static const String villaSelected = 'assets/svg/villa_selected.svg';
-  static const String villaUnselected = 'assets/svg/villa_unselected.svg';
+
+  static const String location = 'assets/svg/location.svg';
+  static const String district = 'assets/svg/district.svg';
+  static const String plus = 'assets/svg/plus.svg';
+  static const String minus = 'assets/svg/minus.svg';
+  static const String arrowDown = 'assets/svg/arrow_down.svg';
+  static const String elevator = 'assets/svg/elevator.svg';
+  static const String parking = 'assets/svg/parking.svg';
+  static const String electricity = 'assets/svg/electricity.svg';
+  static const String wifi = 'assets/svg/wifi.svg';
+  static const String water = 'assets/svg/water.svg';
+  static const String furnished = 'assets/svg/furnished.svg';
+  static const String garden = 'assets/svg/garden.svg';
 }

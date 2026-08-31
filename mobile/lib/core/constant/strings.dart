@@ -24,14 +24,18 @@ class AppStrings {
       'Password must contain an uppercase letter';
   static const String passwordMustHaveLowerChar =
       'Password must contain a lowercase letter';
-  static const String passwordMustHaveNum =
-      'Password must contain a number';
+  static const String passwordMustHaveNum = 'Password must contain a number';
   static const String passwordMustHaveSpecialChar =
       'Password must contain a special character';
   static const String passwordMismatch = 'Passwords do not match';
 
   static const String listYourPropertyTitle = 'List Your Property';
-  static const String listYourPropertyStep1 = 'Step 1 of 8';
+  static const String listYourPropertyStep1 = 'Step 1 of 6';
+
+  static const String listYourPropertyPage2Title = 'Location Details';
+  static const String listYourPropertyStep2 = 'Step 2 of 6';
+  static const String listYourPropertyStep3 = 'Step 3 of 6';
+
   static const String whatAreYouListing = 'What are you listing?';
   static const String forSale = 'For Sale';
   static const String forRent = 'For Rent';
@@ -45,4 +49,32 @@ class AppStrings {
   static const String specifyPropertyType = 'Specify property type';
   static const String specifyPropertyTypeHint = 'e.g. Studio, Farm...';
   static const String continueText = 'Continue';
+  static const String city = 'City';
+  static const String district = 'District';
+  static const String buildingNumber = 'Building Number';
+  static const String area = 'Area (m²)';
+  static const String price = 'Price';
+  static const String floor = 'Floor';
+  static const String rooms = 'Rooms';
+  static const String bathrooms = 'Bathrooms';
+
+    static const String buildingNumberHint = 'e.g. 12';
+  static const String areaHint = 'e.g. 150';
+  static const String priceHint =  'e.g. 85000';
+  static const String floorHint = 'e.g. 3';
+ 
+
+
+  static const String elevator = 'Elevator';
+  static const String parking = 'Parking';
+  static const String electricity = 'Electricity';
+  static const String wifi = 'Internet';
+  static const String water = 'Water';
+  static const String furnished = 'Furnished';
+  static const String garden = 'Garden';
+  static const String description = 'Description';
+  static const String descriptionHint =
+      'Tell buyers about the property — layout, condition, nearby landmarks...';
+
+  static const String   features =  'Features';
 }
