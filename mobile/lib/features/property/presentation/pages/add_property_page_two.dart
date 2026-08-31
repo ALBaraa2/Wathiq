@@ -7,7 +7,6 @@ import '../../../../../../../../config/theme/app_colors.dart';
 import '../../../../../../../../core/constant/app_icons.dart';
 import '../../../../../../../../core/constant/images_path.dart';
 import '../../../../../../../../core/constant/strings.dart';
-import '../../../../../../../../core/widget/app_button.dart';
 import '../../../../config/routes/routes_names.dart';
 import '../widgets/card_wiget.dart';
 import '../widgets/header_widget.dart';
@@ -21,19 +20,18 @@ class AddPropertyScreenTwo extends StatefulWidget {
 }
 
 class _AddPropertyScreenTwoState extends State<AddPropertyScreenTwo> {
-  final TextEditingController _customTypeController = TextEditingController();
-  @override
   final TextEditingController _buildingNoController = TextEditingController();
-  @override
   final TextEditingController _areaController = TextEditingController();
-  @override
   final TextEditingController _priceController = TextEditingController();
 
-  @override
   final TextEditingController _floorController = TextEditingController();
 
+  @override
   void dispose() {
-    _customTypeController.dispose();
+    _buildingNoController.dispose();
+    _areaController.dispose();
+    _priceController.dispose();
+    _floorController.dispose();
     super.dispose();
   }
 
@@ -331,22 +329,6 @@ class _AddPropertyScreenTwoState extends State<AddPropertyScreenTwo> {
           SizedBox(height: 8),
           CardWidget(widget: widget, isSelected: false, onTap: () {}),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSubmitButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: AppElevatedButton(
-        text: AppStrings.continueText,
-        height: 56,
-        width: double.infinity,
-        borderRadius: 999,
-        backgroundColor: AppColors.primaryDark,
-        onPressed: () {
-          // Business logic / Navigation to next step
-        },
       ),
     );
   }

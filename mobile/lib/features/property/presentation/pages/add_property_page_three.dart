@@ -7,8 +7,7 @@ import '../../../../../../../../config/theme/app_colors.dart';
 import '../../../../../../../../core/constant/app_icons.dart';
 import '../../../../../../../../core/constant/images_path.dart';
 import '../../../../../../../../core/constant/strings.dart';
-import '../../../../../../../../core/widget/app_button.dart';
-import '../widgets/submit_button_widget.dart';
+ import '../widgets/submit_button_widget.dart';
 
 class AddPropertyScreenThree extends StatefulWidget {
   const AddPropertyScreenThree({super.key});
@@ -211,20 +210,4 @@ class _AddPropertyScreenThreeState extends State<AddPropertyScreenThree> {
       ),
     );
   }
-
-  Widget _buildSubmitButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: AppElevatedButton(
-        text: AppStrings.continueText,
-        height: 56,
-        width: double.infinity,
-        borderRadius: 999,
-        backgroundColor: AppColors.primaryDark,
-        onPressed: () {
-          // Business logic / Navigation to next step
-        },
-      ),
-    );
-  }
-}
+ }
