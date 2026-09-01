@@ -71,4 +71,18 @@ class AppColors {
   static const Color errorColor = Color(0xFFBE1510);
 
   static const Color backgroundGradient = Color(0xFF002366) ;
+
+  static const Color topSnackBarTitle = Color(0xFF001947);
+
+  static const Color topSnackBarMessage =
+  Color.fromRGBO(0, 17, 58, 0.95);
+
+  static const Color topSnackBarBorder =
+  Color.fromRGBO(195, 198, 214, 0.2);
+
+  static const Color topSnackBarShadow =
+  Color.fromRGBO(0, 85, 204, 0.12);
+
+  static const Color topSnackBarIconOverlay =
+  Color.fromRGBO(0, 109, 67, 0.1);
 }

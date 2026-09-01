@@ -17,74 +17,99 @@ class AppElevatedButton extends StatelessWidget {
     this.width,
     this.height,
     this.borderRadius,
-    this.iconGap = 11,
+    this.iconGap,
     this.textStyle,
     this.elevation,
     this.disabledBackgroundColor,
     this.disabledTextColor,
+    this.iconSize,
   });
-
-  // ─────────────────────────────────────────────
-  // Required
-  // ─────────────────────────────────────────────
 
   final String text;
   final VoidCallback? onPressed;
 
-  // ─────────────────────────────────────────────
-  // State
-  // ─────────────────────────────────────────────
-
   final bool enabled;
-
-  // ─────────────────────────────────────────────
-  // Colors
-  // ─────────────────────────────────────────────
 
   final Color? backgroundColor;
   final Color? disabledBackgroundColor;
   final Color? disabledTextColor;
 
-  // ─────────────────────────────────────────────
-  // Border
-  // ─────────────────────────────────────────────
-
   final bool enableBorder;
   final Color? borderColor;
   final double borderWidth;
 
-  // ─────────────────────────────────────────────
-  // Icons
-  // ─────────────────────────────────────────────
-
   final Widget? preIcon;
   final Widget? postIcon;
 
-  // ─────────────────────────────────────────────
-  // Layout
-  // ─────────────────────────────────────────────
-
+  /// Optional override.
+  /// Defaults to responsive double.infinity.
   final double? width;
+
+  /// Optional override.
+  /// Defaults to responsive Figma height of 56.
   final double? height;
+
+  /// Optional override.
+  /// Defaults to responsive Figma radius of 50.
   final double? borderRadius;
-  final double iconGap;
 
-  // ─────────────────────────────────────────────
-  // Style
-  // ─────────────────────────────────────────────
+  /// Optional override.
+  /// Defaults to responsive Figma gap of 13.
+  final double? iconGap;
 
+  /// Optional override.
+  /// If null, the widget uses the app theme with responsive
+  /// Figma typography values.
   final TextStyle? textStyle;
+
   final double? elevation;
+
+  /// Optional override.
+  /// Defaults to responsive Figma icon size of 20.
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final bool isEnabled = enabled && onPressed != null;
+    // Figma reference dimensions.
+    const double figmaWidth = 393;
+    const double figmaHeight = 852;
 
-    // ─────────────────────────────────────────
-    // Background Color
-    // ─────────────────────────────────────────
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final double screenHeight = MediaQuery.sizeOf(context).height;
+
+    final double widthScale = screenWidth / figmaWidth;
+    final double heightScale = screenHeight / figmaHeight;
+
+    // ------------------------------------------------------------
+    // Responsive defaults based on the Figma design.
+    // ------------------------------------------------------------
+
+    const double figmaButtonHeight = 56;
+    const double figmaBorderRadius = 50;
+    const double figmaIconGap = 13;
+    const double figmaIconSize = 20;
+    const double figmaFontSize = 16;
+    const double figmaLineHeight = 24;
+
+    final double effectiveHeight =
+        height ?? (figmaButtonHeight * heightScale);
+
+    final double effectiveBorderRadius =
+        borderRadius ?? (figmaBorderRadius * widthScale);
+
+    final double effectiveIconGap =
+        iconGap ?? (figmaIconGap * widthScale);
+
+    final double effectiveIconSize =
+        iconSize ?? (figmaIconSize * widthScale);
+
+    // ------------------------------------------------------------
+    // Button state.
+    // ------------------------------------------------------------
+
+    final bool isEnabled = enabled && onPressed != null;
 
     final Color effectiveBackgroundColor =
         backgroundColor ?? theme.colorScheme.primary;
@@ -92,30 +117,56 @@ class AppElevatedButton extends StatelessWidget {
     final Color effectiveDisabledBackgroundColor =
         disabledBackgroundColor ?? AppColors.disabled;
 
-    // ─────────────────────────────────────────
-    // Text Color
-    // ─────────────────────────────────────────
-
     final Color effectiveTextColor = isEnabled
-        ? theme.colorScheme.onPrimary
+        ? (textStyle?.color ?? theme.colorScheme.onPrimary)
         : (disabledTextColor ?? AppColors.textSecondary);
 
-    // ─────────────────────────────────────────
-    // Text Style
-    //
-    // If the caller provides textStyle,
-    // its color/font/etc. are respected.
-    // Otherwise the theme's labelMedium is used.
-    // ─────────────────────────────────────────
+    // ------------------------------------------------------------
+    // Responsive text style.
+    // ------------------------------------------------------------
 
-    final TextStyle effectiveTextStyle = textStyle ??
-        theme.textTheme.labelMedium!.copyWith(
-          color: effectiveTextColor,
-        );
+    final TextStyle effectiveTextStyle =
+    (textStyle ??
+        theme.textTheme.bodyMedium?.copyWith(
+          fontSize: figmaFontSize * widthScale,
+          height: figmaLineHeight / figmaFontSize,
+          fontWeight: FontWeight.w500,
+        ) ??
+        TextStyle(
+          fontSize: figmaFontSize * widthScale,
+          height: figmaLineHeight / figmaFontSize,
+          fontWeight: FontWeight.w500,
+        ))
+        .copyWith(
+      color: effectiveTextColor,
+    );
+
+    // ------------------------------------------------------------
+    // Responsive icon wrapper.
+    // ------------------------------------------------------------
+
+    Widget? buildIcon(Widget? icon) {
+      if (icon == null) {
+        return null;
+      }
+
+      return SizedBox(
+        width: effectiveIconSize,
+        height: effectiveIconSize,
+        child: icon,
+      );
+    }
+
+    final Widget? effectivePreIcon = buildIcon(preIcon);
+    final Widget? effectivePostIcon = buildIcon(postIcon);
+
+    // ------------------------------------------------------------
+    // Button.
+    // ------------------------------------------------------------
 
     return SizedBox(
       width: width ?? double.infinity,
-      height: height ?? 52,
+      height: effectiveHeight,
       child: ElevatedButton(
         onPressed: isEnabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
@@ -128,7 +179,7 @@ class AppElevatedButton extends StatelessWidget {
           textStyle: effectiveTextStyle,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
-              borderRadius ?? 12,
+              effectiveBorderRadius,
             ),
             side: enableBorder
                 ? BorderSide(
@@ -142,31 +193,19 @@ class AppElevatedButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ─────────────────────────────────
-            // Pre Icon
-            // ─────────────────────────────────
-
-            if (preIcon != null) ...[
-              preIcon!,
-              SizedBox(width: iconGap),
+            if (effectivePreIcon != null) ...[
+              effectivePreIcon,
+              SizedBox(width: effectiveIconGap),
             ],
-
-            // ─────────────────────────────────
-            // Text
-            // ─────────────────────────────────
 
             Text(
               text,
               style: effectiveTextStyle,
             ),
 
-            // ─────────────────────────────────
-            // Post Icon
-            // ─────────────────────────────────
-
-            if (postIcon != null) ...[
-              SizedBox(width: iconGap),
-              postIcon!,
+            if (effectivePostIcon != null) ...[
+              SizedBox(width: effectiveIconGap),
+              effectivePostIcon,
             ],
           ],
         ),

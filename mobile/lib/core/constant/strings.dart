@@ -57,5 +57,7 @@ class AppStrings {
   static const String sendCode = 'Send Code' ;
   static const String getStarted = 'Let\'s get started!';
   static const String enterYourEmailAdd = "Enter your email address to create your account";
+  static const String featureNotAvailable = 'Feature Unavailable' ;
+  static const String featureWillBeAvailbleLater = 'This feature is currently not available. Please try again later.' ;
 
 }

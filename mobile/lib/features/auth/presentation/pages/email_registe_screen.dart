@@ -40,7 +40,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen> {
         surfaceTintColor: AppColors.transparent,
 
         leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
+          onPressed: () => context.go(RouteNames.onboardingScreen),
           icon: SvgPicture.asset(
             AppIcons.back,
           ),
