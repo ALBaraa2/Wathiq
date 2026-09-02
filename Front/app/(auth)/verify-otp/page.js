@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AuthLayout } from '@/components/auth/AuthLayout'
 import { Button } from '@/components/ui/Button'
@@ -7,7 +7,7 @@ import { Spinner } from '@/components/ui/Spinner'
 import { useLang } from '@/context/LanguageContext'
 import { requestOtp, verifyOtp } from '@/features/auth/services/authService'
 
-export default function VerifyOtpPage() {
+function VerifyOtpContent() {
   const { t } = useLang(); const isRtl = t.dir === 'rtl'; const router = useRouter(); const params = useSearchParams()
   const email = params.get('email') || ''; const [code, setCode] = useState(''); const [loading, setLoading] = useState(false); const [resending, setResending] = useState(false); const [error, setError] = useState(''); const [seconds, setSeconds] = useState(0); const inputRef = useRef(null)
   useEffect(() => { inputRef.current?.focus() }, [])
@@ -32,4 +32,11 @@ export default function VerifyOtpPage() {
       </div>
     </form>
   </AuthLayout>
+}
+export default function VerifyOtpPage() {
+  return (
+    <Suspense fallback={null}>
+      <VerifyOtpContent />
+    </Suspense>
+  )
 }
