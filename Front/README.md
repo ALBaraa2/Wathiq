@@ -55,3 +55,7 @@ The frontend follows a feature-oriented and reusable architecture.
 - `context/` — application-level state and providers
 - `lib/` — API, authentication, and shared utilities
 - `public/` — static assets
+
+## Deployment
+
+Live Preview: [Open WATHIQ Admin Dashboard](https://wathiq-frontend-44bfvkcuw-wathiq4.vercel.app?_vercel_share=dv2kbhANOh2x76wUjFzq8gkGAgJ2HHkm)
