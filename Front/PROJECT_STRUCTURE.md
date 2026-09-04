@@ -96,3 +96,10 @@ Do not place `fetch()` calls inside dashboard section components.
 
 ### Development Preview
 `WATHIQ_AUTH_BYPASS` is development-only and is additionally gated by `NODE_ENV === 'development'`. It must never be enabled in production.
+
+### Verification Center
+The Verification Center feature is isolated under `features/verification` and composed of thin route files under `app/(dashboard)/dashboard/verification`.
+
+The feature uses reusable components for verification lists, details, tabs, breadcrumbs, and navigation.
+
+Verification types, labels, counts, routes, detail titles, and reference-field mappings are centralized in `features/verification/config/verification.config.js`, allowing future verification types to be added without duplicating page UI or business structure.
