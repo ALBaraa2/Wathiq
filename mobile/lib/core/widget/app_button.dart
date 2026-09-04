@@ -27,45 +27,21 @@ class AppElevatedButton extends StatelessWidget {
 
   final String text;
   final VoidCallback? onPressed;
-
   final bool enabled;
-
   final Color? backgroundColor;
   final Color? disabledBackgroundColor;
   final Color? disabledTextColor;
-
   final bool enableBorder;
   final Color? borderColor;
   final double borderWidth;
-
   final Widget? preIcon;
   final Widget? postIcon;
-
-  /// Optional override.
-  /// Defaults to responsive double.infinity.
   final double? width;
-
-  /// Optional override.
-  /// Defaults to responsive Figma height of 56.
   final double? height;
-
-  /// Optional override.
-  /// Defaults to responsive Figma radius of 50.
   final double? borderRadius;
-
-  /// Optional override.
-  /// Defaults to responsive Figma gap of 13.
   final double? iconGap;
-
-  /// Optional override.
-  /// If null, the widget uses the app theme with responsive
-  /// Figma typography values.
   final TextStyle? textStyle;
-
   final double? elevation;
-
-  /// Optional override.
-  /// Defaults to responsive Figma icon size of 20.
   final double? iconSize;
 
   @override
@@ -141,9 +117,7 @@ class AppElevatedButton extends StatelessWidget {
       color: effectiveTextColor,
     );
 
-    // ------------------------------------------------------------
-    // Responsive icon wrapper.
-    // ------------------------------------------------------------
+
 
     Widget? buildIcon(Widget? icon) {
       if (icon == null) {

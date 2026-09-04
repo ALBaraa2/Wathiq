@@ -6,7 +6,7 @@ import 'config/routes/app_routes.dart';
 import 'config/theme/app_theme.dart';
 
 void main() {
-  //WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
     DevicePreview(

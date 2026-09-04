@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/config/routes/routes_names.dart';
 import 'package:mobile/features/verification/presentation/verification_pending_screen.dart';
@@ -9,6 +10,7 @@ import '../../features/auth/presentation/pages/email_login_screen.dart';
 import '../../features/auth/presentation/pages/email_registe_screen.dart';
 import '../../features/auth/presentation/pages/phone_login_screen.dart';
 import '../../features/auth/presentation/pages/phone_register_screen.dart';
+import '../../features/auth/presentation/state_mangement/cubit/register/register_cubit.dart';
 import '../../features/onboarding/presentation/onboardin_screen.dart';
 import '../../features/onboarding/presentation/onboarding_login_screen.dart';
 import '../../features/onboarding/presentation/splash_screen.dart';
@@ -89,8 +91,10 @@ class AppRoutes {
         path: RouteNames.emailRegisterScreen,
         name: 'emailRegisterScreen',
         builder: (context, state) {
-          return const EmailRegisterScreen();
-        },
+          return BlocProvider(
+            create: (_) => RegisterCubit(),
+            child: const EmailRegisterScreen(),
+          );        },
       ),
 
       // ─────────────────────────────────────────────

@@ -60,4 +60,9 @@ class AppStrings {
   static const String featureNotAvailable = 'Feature Unavailable' ;
   static const String featureWillBeAvailbleLater = 'This feature is currently not available. Please try again later.' ;
 
+  static const String codeSent = 'Code Sent!' ;
+  static const String checkEmailForVerificationCode = 'Check your Email for the verification code' ;
+
+
+
 }

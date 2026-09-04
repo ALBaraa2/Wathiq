@@ -92,7 +92,7 @@ class OnBoardingScreen extends StatelessWidget {
                     AppElevatedButton(
                       text: AppStrings.continueWithEmail,
                       onPressed: () {
-                        context.go(
+                        context.push(
                           RouteNames.emailRegisterScreen,
                         );
                       },
