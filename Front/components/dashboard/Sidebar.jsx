@@ -15,7 +15,7 @@ const NAV_GROUPS = [
   },
   {
     groupKey: 'verification',
-    items: [{ key: 'verifyCenter', href: '/dashboard/identity', icon: 'shield', badge: 47 }],
+    items: [{ key: 'verifyCenter', href: '/dashboard/verification', icon: 'shield', badge: 47 }],
   },
   {
     groupKey: 'management',
