@@ -74,4 +74,7 @@ class AppColors {
 
   static const Color card2SelectedBg = Color.fromRGBO(0, 63, 156, 0.2);
   static const Color card2UnselectedBg = Color.fromRGBO(195, 198, 214, 0.3);
-}
+  static const Color photoBorder = Color.fromRGBO(177, 197, 255, 0.4);
+  static const Color addPhotoBg = Color.fromRGBO(249, 249, 252, 0.05);
+
+ }

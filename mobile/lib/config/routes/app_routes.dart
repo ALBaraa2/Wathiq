@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/config/routes/routes_names.dart';
+import 'package:mobile/features/property/presentation/pages/add_property_page_four.dart';
  
 import 'package:mobile/features/verification/presentation/verification_pending_screen.dart';
 import 'package:mobile/features/verification/presentation/verify_identity_screen.dart';
@@ -26,7 +27,7 @@ class AppRoutes {
   // ─────────────────────────────────────────────
 
   static final GoRouter router = GoRouter(
-     initialLocation: RouteNames.splash,
+     initialLocation: RouteNames.addPropertyScreenFour,
  
     routes: [
       // ─────────────────────────────────────────────
@@ -121,6 +122,13 @@ class AppRoutes {
         name: 'addPropertScreenThree',
         builder: (context, state) {
           return const AddPropertyScreenThree();
+        },
+      ),
+         GoRoute(
+        path: RouteNames.addPropertyScreenFour,
+        name: 'addPropertScreenFour',
+        builder: (context, state) {
+          return const AddPropertyScreenFour();
         },
       ),
       // ─────────────────────────────────────────────

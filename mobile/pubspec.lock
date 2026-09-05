@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "99b091ec6891ba0c5331fdc2b502993c7c108f898995739a73c6845d71dad70c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -277,6 +285,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  image_picker2_plus:
+    dependency: "direct main"
+    description:
+      name: image_picker2_plus
+      sha256: c188d7c70b15680b02976a81db49e367198328893a04d546a3f127d413fcbfb5
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   image_picker_android:
     dependency: transitive
     description:

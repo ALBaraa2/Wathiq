@@ -65,6 +65,9 @@ dependencies:
 
   country_code_picker: ^3.4.1
   image_picker: ^1.2.3
+  image_picker2_plus: ^1.0.2
+
+  dotted_border: ^3.1.0
 
 dev_dependencies:
   flutter_test:

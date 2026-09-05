@@ -35,6 +35,7 @@ class AppStrings {
   static const String listYourPropertyPage2Title = 'Location Details';
   static const String listYourPropertyStep2 = 'Step 2 of 6';
   static const String listYourPropertyStep3 = 'Step 3 of 6';
+  static const String listYourPropertyStep4 = 'Step 4 of 6';
 
   static const String whatAreYouListing = 'What are you listing?';
   static const String forSale = 'For Sale';
@@ -58,12 +59,10 @@ class AppStrings {
   static const String rooms = 'Rooms';
   static const String bathrooms = 'Bathrooms';
 
-    static const String buildingNumberHint = 'e.g. 12';
+  static const String buildingNumberHint = 'e.g. 12';
   static const String areaHint = 'e.g. 150';
-  static const String priceHint =  'e.g. 85000';
+  static const String priceHint = 'e.g. 85000';
   static const String floorHint = 'e.g. 3';
- 
-
 
   static const String elevator = 'Elevator';
   static const String parking = 'Parking';
@@ -76,5 +75,10 @@ class AppStrings {
   static const String descriptionHint =
       'Tell buyers about the property — layout, condition, nearby landmarks...';
 
-  static const String   features =  'Features';
+  static const String features = 'Features';
+  static const String propertyPhotos = 'Property Photos';
+  static const String addPhotosDescription =
+      'Add at least 3 photos. Tap a photo to set it as the cover.';
+
+  static const String add = 'Add';
 }

@@ -26,4 +26,6 @@ class RouteNames {
   static const String addPropertyScreenOne = '/addPropertyScreenOne';
   static const String addPropertyScreenTwo = '/addPropertyScreenTwo';
   static const String addPropertyScreenThree = '/addPropertyScreenThree';
+    static const String addPropertyScreenFour = '/addPropertyScreenFour';
+
 }

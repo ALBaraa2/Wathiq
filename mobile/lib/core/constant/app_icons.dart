@@ -9,12 +9,12 @@ class AppIcons {
   static const String gmail = 'assets/svg/gmail.svg';
   static const String identity = 'assets/svg/identity.svg';
 
-  static const String apartment  = 'assets/svg/apartment.svg';
+  static const String apartment = 'assets/svg/apartment.svg';
   static const String house = 'assets/svg/house.svg';
   static const String land = 'assets/svg/land.svg';
-  static const String other  = 'assets/svg/other.svg';
+  static const String other = 'assets/svg/other.svg';
   static const String shop = 'assets/svg/shop.svg';
-  static const String villa  = 'assets/svg/villa.svg';
+  static const String villa = 'assets/svg/villa.svg';
 
   static const String language = 'assets/svg/language.svg';
   static const String logout = 'assets/svg/logout.svg';
@@ -37,4 +37,6 @@ class AppIcons {
   static const String water = 'assets/svg/water.svg';
   static const String furnished = 'assets/svg/furnished.svg';
   static const String garden = 'assets/svg/garden.svg';
+  static const String addPhoto = 'assets/svg/add_photo.svg';
+  static const String remove = 'assets/svg/remove.svg';
 }
