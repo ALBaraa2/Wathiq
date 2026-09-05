@@ -1,6 +1,6 @@
 import hashlib
 
-from app.providers.base import EmbeddingProvider, LLMProvider
+from app.providers.base import EmbeddingProvider, LLMProvider, RerankProvider
 
 
 class FakeLLMProvider(LLMProvider):
@@ -22,3 +22,18 @@ class FakeEmbeddingProvider(EmbeddingProvider):
             raw = (digest * (self.dimensions // len(digest) + 1))[: self.dimensions]
             vectors.append([(b - 128) / 128 for b in raw])
         return vectors
+
+
+class FakeRerankProvider(RerankProvider):
+    """Deterministic stand-in for tests — scores by shared-word overlap with the query,
+    no network call, same input -> same output."""
+
+    async def rerank(self, query: str, documents: list[str], top_n: int) -> list[tuple[int, float]]:
+        query_words = set(query.lower().split())
+        scored = []
+        for index, document in enumerate(documents):
+            doc_words = set(document.lower().split())
+            overlap = len(query_words & doc_words) / max(len(query_words), 1)
+            scored.append((index, overlap))
+        scored.sort(key=lambda pair: pair[1], reverse=True)
+        return scored[:top_n]

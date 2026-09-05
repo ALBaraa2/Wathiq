@@ -10,16 +10,20 @@ class Settings(BaseSettings):
     ai_webhook_secret: str = ""
     laravel_callback_url: str = "http://localhost:8000/api/ai/callback"
 
-    # DeepInfra — embeddings. OpenAI-compatible endpoint.
-    deepinfra_api_key: str = ""
-    deepinfra_base_url: str = "https://api.deepinfra.com/v1/openai"
-    embedding_model: str = "Qwen/Qwen3-Embedding-8B"
-    embedding_dimensions: int = 1536  # truncated from the model's native 4096
-
-    # OpenRouter — LLM. Also OpenAI-compatible.
+    # OpenRouter — embeddings + reranker, both free-tier. Embeddings are
+    # OpenAI-compatible; rerank is OpenRouter's own /rerank endpoint (see
+    # app/providers/openrouter_rerank.py). Free tier logs prompts/output and
+    # is "trial use only" — fine for dev/eval, not for real client contracts.
     openrouter_api_key: str = ""
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
-    chat_model: str = "deepseek/deepseek-v4-pro"
+    embedding_model: str = "nvidia/llama-nemotron-embed-vl-1b-v2:free"
+    embedding_dimensions: int = 1536  # truncated from the model's native 2048
+    rerank_model: str = "nvidia/llama-nemotron-rerank-vl-1b-v2:free"
+
+    # DeepSeek — LLM, direct platform API (OpenAI-compatible), not OpenRouter.
+    deepseek_api_key: str = ""
+    deepseek_base_url: str = "https://api.deepseek.com/v1"
+    chat_model: str = "deepseek-v4-pro"
 
 
 settings = Settings()
