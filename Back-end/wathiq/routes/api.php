@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\IdentityDocumentController as AdminIdentityDocumentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Kyc\IdentityDocumentController as KycIdentityDocumentController;
+use App\Http\Controllers\Property\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/auth')->group(function () {
@@ -21,6 +22,11 @@ Route::get('/user', [AuthController::class, 'me'])->middleware('auth.jwt');
 Route::prefix('v1/kyc')->middleware('auth.jwt')->group(function () {
     Route::post('documents', [KycIdentityDocumentController::class, 'store']);
     Route::get('status', [KycIdentityDocumentController::class, 'status']);
+});
+
+// FR-3.x: an owner submits a listing, which starts under review.
+Route::prefix('v1/properties')->middleware(['auth.jwt', 'kyc.verified'])->group(function () {
+    Route::post('/', [PropertyController::class, 'store']);
 });
 
 // UC-031/032-style admin review queue for KYC submissions.
