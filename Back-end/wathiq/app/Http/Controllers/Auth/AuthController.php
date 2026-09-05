@@ -25,9 +25,10 @@ class AuthController extends Controller
      */
     public function requestOtp(RequestOtpRequest $request): JsonResponse
     {
-        $this->otp->requestForEmail($request->validated('email'), $request->ip());
+        $user = $this->otp->requestForEmail($request->validated('email'), $request->ip());
 
         return response()->json([
+            'status' => $user->wasRecentlyCreated ? 'register' : 'login',
             'message' => __('A verification code has been sent to your email.'),
             'expires_in_minutes' => (int) config('otp.ttl_minutes'),
         ]);
@@ -45,6 +46,7 @@ class AuthController extends Controller
         $refresh = $this->jwt->issueRefreshToken($user, $request->ip(), $request->userAgent());
 
         return response()->json([
+            'status' => $user->isFirstVerification ? 'register' : 'login',
             'user' => new UserResource($user),
             'access_token' => $accessToken,
             'refresh_token' => $refresh['token'],

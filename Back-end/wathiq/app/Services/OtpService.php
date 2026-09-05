@@ -5,6 +5,9 @@ namespace App\Services;
 use App\Exceptions\Auth\AuthenticationFailedException;
 use App\Mail\OtpCodeMail;
 use App\Models\OtpCode;
+use App\Models\Role;
+use App\Models\Tenant;
+use App\Models\TenantMembership;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -21,6 +24,14 @@ class OtpService
     private const CHANNEL = 'email';
 
     /**
+     * Every self-registered user starts with this single role in the MVP's
+     * one tenant — there is no admin/owner/beneficiary distinction to
+     * choose at sign-up (see UC-037/UC-038 note above). Admin is never
+     * granted here; it stays a manual grant via `user:make-admin`.
+     */
+    private const DEFAULT_ROLE = 'user';
+
+    /**
      * @throws AuthenticationFailedException
      */
     public function requestForEmail(string $email, ?string $ip): User
@@ -34,6 +45,10 @@ class OtpService
             ['email' => $email],
             ['status' => 'pending_verification', 'locale' => app()->getLocale() === 'ar' ? 'ar' : 'en'],
         );
+
+        if ($user->wasRecentlyCreated) {
+            $this->grantDefaultRole($user);
+        }
 
         $this->assertNotLocked($user);
 
@@ -106,15 +121,47 @@ class OtpService
 
         $otp->update(['consumed_at' => now()]);
 
+        $isFirstVerification = $user->status === 'pending_verification';
+
         $user->forceFill([
             'failed_login_count' => 0,
             'locked_until' => null,
             'last_login_at' => now(),
             'email_verified_at' => $user->email_verified_at ?? now(),
-            'status' => $user->status === 'pending_verification' ? 'active' : $user->status,
+            'status' => $isFirstVerification ? 'active' : $user->status,
         ])->save();
 
+        // Transient, not persisted: lets callers tell a first-time
+        // verification (registration completing) apart from a login.
+        $user->isFirstVerification = $isFirstVerification;
+
         return $user;
+    }
+
+    private function grantDefaultRole(User $user): void
+    {
+        $tenant = Tenant::where('slug', 'default')->first();
+
+        if (! $tenant) {
+            report(new \RuntimeException('No "default" tenant found; cannot grant default role to new user '.$user->id));
+
+            return;
+        }
+
+        $role = Role::where('code', self::DEFAULT_ROLE)->first();
+
+        if (! $role) {
+            report(new \RuntimeException('No "'.self::DEFAULT_ROLE.'" role found; cannot grant it to new user '.$user->id));
+
+            return;
+        }
+
+        TenantMembership::create([
+            'tenant_id' => $tenant->id,
+            'user_id' => $user->id,
+            'role_id' => $role->id,
+            'status' => 'active',
+        ]);
     }
 
     private function generateCode(): string
