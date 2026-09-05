@@ -27,23 +27,6 @@
 Compressed: decisions block everything else, so they go first and fast. Skeleton runs in parallel once decided.
 
 **Phase 0 — Decisions & foundations**
-<<<<<<< HEAD
-- [ ] Pin embedding model for 1536-d (`text-embedding-3-small` or equivalent) — or replace dim in `000601_*` before any seeding
-- [ ] Pin LLM provider (Azure OpenAI vs. OpenAI vs. Copilot-API) behind a provider interface
-- [ ] Ratify Python/FastAPI + LangGraph, pgvector (no HNSW at launch) — already implied by schema, just confirm in writing
-- [ ] Create the AI service's restricted Postgres role (`knowledge.*` only, no `app.contracts`)
-- [ ] Write the OpenAPI wire contract: `generate_contract`, `analyze_contract` request/response + webhook callback shape + HMAC scheme
-- [ ] Shared `.env` config: AI service URL, webhook secret, LLM/embedding creds, timeouts, retries
-- **Exit:** one-page AI integration contract doc, both sides agree, embedding dim final.
-
-**1A — AI service skeleton**
-- [ ] Scaffold `AI/` (FastAPI + uv/poetry + LangGraph)
-- [ ] `LLMProvider` + `EmbeddingProvider` abstractions, one real adapter + one fake/deterministic adapter for tests
-- [ ] `/health`, `/v1/jobs`, callback route
-- [ ] Structured logging, trace ids, usage metrics (tokens, latency)
-- [ ] API key check inbound, HMAC signing outbound
-- **Exit:** service boots, `/health` → 200, smoke job round-trips.
-=======
 - [x] **Embedding model — Qwen3-Embedding-8B** (Alibaba/Qwen, open-weight) via **DeepInfra**'s OpenAI-compatible API. Native output is 4096-d, truncated to **1536** via the `dimensions` request param to match `knowledge.chunks.embedding vector(1536)` already migrated — no schema edit, no re-embed risk. Picked over OpenAI's text-embedding-3 line after comparing DeepInfra's whole catalog: best multilingual score of the viable options, same-or-lower price, and 32k context (vs OpenAI's 8k) so a full law article chunks without truncating. Arabic quality is still unverified in production — Sprint 5's golden-set harness is the real gate; revisit here + `000601_*` if it scores badly.
 - [x] **LLM provider — DeepSeek-V4-Pro** (DeepSeek AI) via **OpenRouter** (`deepseek/deepseek-v4-pro`) — cheaper there than DeepSeek's own direct API, plus failover across ~17 backend providers. Picked over Azure OpenAI and explicitly over Claude (ruled out on cost): cheapest model found that's actually reasoning-tuned (needed for `analyze_contract`'s multi-step finding logic), 1M context fits a full contract + every retrieved citation in one call. SRS's "Microsoft Copilot (replaceable)" — this is the swap; `app/providers/base.py`'s `LLMProvider` interface keeps it swappable again. Trade-off: this leaves Azure's data-residency story for the *database* only (§ below) — no residency requirement has been raised against DeepSeek/OpenRouter specifically, revisit if one is.
 - [x] Ratify Python/FastAPI + LangGraph, pgvector (no HNSW at launch) — already implied by schema/SRS, this line just confirms it in writing. Package manager: `uv`.
@@ -61,7 +44,6 @@ Compressed: decisions block everything else, so they go first and fast. Skeleton
 - [x] Structured logging, trace ids, usage metrics (tokens, latency) — `app/logging_conf.py`, timing middleware in `app/main.py`; per-call token/latency usage wiring lands with the real agents (1C/1D)
 - [x] API key check inbound, HMAC signing outbound — `app/security.py`
 - **Exit:** service boots, `/health` → 200, smoke job round-trips. Verified 2026-08-23 (`uv run pytest` 3 passed; live `curl /health` → `{"status":"ok"}`)
->>>>>>> 85dfb4ebd42477dafd8585e46bafb60c90a69208
 
 ---
 
