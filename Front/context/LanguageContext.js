@@ -27,8 +27,6 @@ export const translations = {
     resendOtp:      'إعادة إرسال الرمز',
     changeEmail:    'تغيير البريد الإلكتروني',
 
-
-
     // Brand panel
     dashboardTitle: 'لوحة التحكم الإدارية',
     dashboardSub:   'تحكم كامل. رؤية واضحة. إدارة احترافية.',
@@ -51,6 +49,71 @@ export const translations = {
     verifyCenter:   'مركز التحقق',
     system:         'النظام',
     settings:       'الإعدادات',
+
+    // Verification Center
+    verificationCenter: {
+      title:             'مركز التحقق',
+      breadcrumb:        'مسار الصفحة',
+      types:             'أنواع التحقق',
+      description:       'إدارة ومراجعة طلبات التحقق المعلقة',
+      searchPlaceholder: 'بحث برقم الطلب أو الاسم',
+      filter:            'تصفية',
+      viewDetails:       'عرض التفاصيل',
+      pendingRequests:   'طلبًا بانتظار المراجعة',
+
+      columns: {
+        identity: {
+          user:          'المستخدم',
+          documentType:  'نوع الوثيقة',
+          submittedAt:   'تاريخ التقديم',
+          priority:      'الأولوية',
+          status:        'الحالة',
+        },
+        property: {
+          requestOwner:  'رقم الطلب / المالك',
+          propertyType:  'نوع العقار',
+          area:          'المساحة م²',
+          city:          'المدينة',
+          submittedAt:   'تاريخ التقديم',
+          status:        'الحالة',
+        },
+        lawyers: {
+          lawyer:        'المحامي',
+          licenseNumber: 'رقم الترخيص',
+          submittedAt:   'تاريخ التقديم',
+          specialty:     'التخصص',
+          status:        'الحالة',
+        },
+      },
+
+      documentTypes: {
+        nationalId:     'هوية وطنية',
+        passport:       'جواز سفر',
+        residenceCard:  'بطاقة إقامة',
+      },
+
+      propertyTypes: {
+        residential:    'سكني',
+        commercial:     'تجاري',
+      },
+
+      specialties: {
+        realEstate:     'العقارات',
+        contractNotary: 'توثيق العقود',
+      },
+
+      priorities: {
+        high:           'عالية',
+        medium:         'متوسطة',
+        low:            'منخفضة',
+      },
+
+      statuses: {
+        pending:        'قيد المراجعة',
+        approved:       'موثّق',
+        rejected:       'مرفوض',
+      },
+    },
 
     // Dashboard stats
     activeProperties: 'عقارات نشطة',
@@ -194,8 +257,6 @@ export const translations = {
     resendOtp:      'Resend code',
     changeEmail:    'Change email',
 
-
-
     // Brand panel
     dashboardTitle: 'Admin Dashboard',
     dashboardSub:   'Full control. Clear vision. Professional management.',
@@ -218,6 +279,71 @@ export const translations = {
     verifyCenter:   'Verify Center',
     system:         'System',
     settings:       'Settings',
+
+    // Verification Center
+    verificationCenter: {
+      title:             'Verification Center',
+      breadcrumb:        'Breadcrumb',
+      types:             'Verification types',
+      description:       'Manage and review pending verification requests',
+      searchPlaceholder: 'Search by request ID or name',
+      filter:            'Filter',
+      viewDetails:       'View details',
+      pendingRequests:   'requests pending review',
+
+      columns: {
+        identity: {
+          user:          'User',
+          documentType:  'Document type',
+          submittedAt:   'Submitted date',
+          priority:      'Priority',
+          status:        'Status',
+        },
+        property: {
+          requestOwner:  'Request ID / Owner',
+          propertyType:  'Property type',
+          area:          'Area m²',
+          city:          'City',
+          submittedAt:   'Submitted date',
+          status:        'Status',
+        },
+        lawyers: {
+          lawyer:        'Lawyer',
+          licenseNumber: 'License number',
+          submittedAt:   'Submitted date',
+          specialty:     'Specialty',
+          status:        'Status',
+        },
+      },
+
+      documentTypes: {
+        nationalId:     'National ID',
+        passport:       'Passport',
+        residenceCard:  'Residence card',
+      },
+
+      propertyTypes: {
+        residential:    'Residential',
+        commercial:     'Commercial',
+      },
+
+      specialties: {
+        realEstate:     'Real estate',
+        contractNotary: 'Contract notarization',
+      },
+
+      priorities: {
+        high:           'High',
+        medium:         'Medium',
+        low:            'Low',
+      },
+
+      statuses: {
+        pending:        'Under review',
+        approved:       'Verified',
+        rejected:       'Rejected',
+      },
+    },
 
     // Dashboard stats
     activeProperties: 'Active Properties',
