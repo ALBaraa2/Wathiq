@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencySeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(TenantSeeder::class);
+        $this->call(AmenitySeeder::class);
 
         // User::factory(10)->create();
 

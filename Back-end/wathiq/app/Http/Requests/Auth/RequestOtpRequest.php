@@ -15,6 +15,7 @@ class RequestOtpRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'max:255'],
+            'status' => ['required', 'in:login,register'],
         ];
     }
 }

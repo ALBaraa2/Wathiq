@@ -69,6 +69,24 @@ class AuthenticationFailedException extends Exception
         );
     }
 
+    public static function emailNotRegistered(): self
+    {
+        return new self(
+            'This email is not registered. Please register first.',
+            'email_not_registered',
+            404,
+        );
+    }
+
+    public static function emailAlreadyRegistered(): self
+    {
+        return new self(
+            'This email is already registered. Please login instead.',
+            'email_already_registered',
+            409,
+        );
+    }
+
     public static function unauthenticated(): self
     {
         return new self(

@@ -20,15 +20,19 @@ class AuthController extends Controller
     ) {}
 
     /**
-     * UC-037/UC-038 merged: request a code for an email. Creates the
-     * account on first request — there is no separate registration step.
+     * UC-037/UC-038: the caller declares 'login' or 'register' up front —
+     * OtpService rejects a mismatch (e.g. 'login' for an email that was
+     * never registered) before sending a code.
      */
     public function requestOtp(RequestOtpRequest $request): JsonResponse
     {
-        $user = $this->otp->requestForEmail($request->validated('email'), $request->ip());
+        $this->otp->requestForEmail(
+            $request->validated('email'),
+            $request->validated('status'),
+            $request->ip(),
+        );
 
         return response()->json([
-            'status' => $user->wasRecentlyCreated ? 'register' : 'login',
             'message' => __('A verification code has been sent to your email.'),
             'expires_in_minutes' => (int) config('otp.ttl_minutes'),
         ]);
@@ -46,7 +50,6 @@ class AuthController extends Controller
         $refresh = $this->jwt->issueRefreshToken($user, $request->ip(), $request->userAgent());
 
         return response()->json([
-            'status' => $user->isFirstVerification ? 'register' : 'login',
             'user' => new UserResource($user),
             'access_token' => $accessToken,
             'refresh_token' => $refresh['token'],

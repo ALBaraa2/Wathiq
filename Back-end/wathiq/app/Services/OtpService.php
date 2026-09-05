@@ -16,8 +16,9 @@ use Illuminate\Support\Str;
 /**
  * The only credential in this system: a short numeric code sent to the
  * user's email (WhatsApp reserved for later — see app.otp_channel).
- * Requesting a code for an unknown email registers the account; there is no
- * separate sign-up step (UC-037/UC-038 are the same flow now).
+ * The caller declares intent via `status` ('login' or 'register') and
+ * that intent must match reality — 'login' for an unknown email or
+ * 'register' for a known one is rejected before a code is ever sent.
  */
 class OtpService
 {
@@ -34,19 +35,33 @@ class OtpService
     /**
      * @throws AuthenticationFailedException
      */
-    public function requestForEmail(string $email, ?string $ip): User
+    public function requestForEmail(string $email, string $status, ?string $ip): User
     {
         $email = mb_strtolower(trim($email));
 
+        /** @var User|null $existingUser */
+        $existingUser = User::where('email', $email)->first();
+
+        if ($status === 'login' && ! $existingUser) {
+            throw AuthenticationFailedException::emailNotRegistered();
+        }
+
+        if ($status === 'register' && $existingUser) {
+            throw AuthenticationFailedException::emailAlreadyRegistered();
+        }
+
         $this->assertNotRateLimited($email, $ip);
 
-        /** @var User $user */
-        $user = User::firstOrCreate(
-            ['email' => $email],
-            ['status' => 'pending_verification', 'locale' => app()->getLocale() === 'ar' ? 'ar' : 'en'],
-        );
+        if ($existingUser) {
+            $user = $existingUser;
+        } else {
+            /** @var User $user */
+            $user = User::create([
+                'email' => $email,
+                'status' => 'pending_verification',
+                'locale' => app()->getLocale() === 'ar' ? 'ar' : 'en',
+            ]);
 
-        if ($user->wasRecentlyCreated) {
             $this->grantDefaultRole($user);
         }
 

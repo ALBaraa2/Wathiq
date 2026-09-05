@@ -8,6 +8,11 @@ return new class extends Migration
     /**
      * NFR-4.4 RBAC. Roles are seeded here and are not user-editable in the
      * MVP — role/permission administration is Phase 2 (FR-13.2).
+     *
+     * Only two roles for this stage: `admin` (granted only via
+     * `user:make-admin`) and `user` (granted to everyone at registration —
+     * a normal user acts as both owner and beneficiary, there is no
+     * separate account type for each yet).
      */
     public function up(): void
     {
@@ -26,11 +31,8 @@ return new class extends Migration
             create unique index roles_code_key on app.roles (code);
 
             insert into app.roles (code, name_ar, name_en) values
-                ('admin',       'مدير النظام',   'System Administrator'),
-                ('owner',       'مالك عقار',     'Property Owner'),
-                ('beneficiary', 'مستفيد',        'Beneficiary'),
-                ('lawyer',      'محامٍ معتمد',   'Licensed Lawyer'),
-                ('broker',      'وسيط عقاري',    'Real Estate Broker');  -- Phase 2, seeded now
+                ('admin', 'مدير النظام', 'System Administrator'),
+                ('user',  'مستخدم',       'User');
         SQL);
     }
 
