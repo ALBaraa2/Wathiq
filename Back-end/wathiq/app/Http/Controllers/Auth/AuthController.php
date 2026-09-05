@@ -20,12 +20,17 @@ class AuthController extends Controller
     ) {}
 
     /**
-     * UC-037/UC-038 merged: request a code for an email. Creates the
-     * account on first request — there is no separate registration step.
+     * UC-037/UC-038: the caller declares 'login' or 'register' up front —
+     * OtpService rejects a mismatch (e.g. 'login' for an email that was
+     * never registered) before sending a code.
      */
     public function requestOtp(RequestOtpRequest $request): JsonResponse
     {
-        $this->otp->requestForEmail($request->validated('email'), $request->ip());
+        $this->otp->requestForEmail(
+            $request->validated('email'),
+            $request->validated('status'),
+            $request->ip(),
+        );
 
         return response()->json([
             'message' => __('A verification code has been sent to your email.'),
